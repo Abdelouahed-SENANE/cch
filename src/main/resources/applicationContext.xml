@@ -32,6 +32,9 @@
         </property>
     </bean>
 
+
+    <bean id="teamDao" class="ma.youcode.cch.dao.implementations.TeamDaoImp"/>
+
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">

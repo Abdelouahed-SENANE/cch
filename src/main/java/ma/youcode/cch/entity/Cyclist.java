@@ -31,7 +31,7 @@ public class Cyclist {
     private String age;
 
     @ManyToOne
-    @JoinColumn(name = "team_id")
+    @JoinColumn(name = "team_id" , nullable = false)
     private Team team;
 
     @OneToMany(mappedBy = "cyclist")

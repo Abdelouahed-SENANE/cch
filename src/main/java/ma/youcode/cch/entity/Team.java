@@ -1,13 +1,16 @@
 package ma.youcode.cch.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "teams")
+@Getter
+@Setter
 public class Team {
 
     @Id
@@ -18,7 +21,7 @@ public class Team {
     @Column(name = "team_name")
     private String teamName;
 
-    @OneToMany(mappedBy = "team" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "team" , cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     private Set<Cyclist> cyclists;
 
 }

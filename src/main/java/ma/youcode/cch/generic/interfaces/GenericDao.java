@@ -1,8 +1,8 @@
 package ma.youcode.cch.generic.interfaces;
 
-import java.util.List;
+import java.util.Set;
 
-public interface GenericService<T , ID> {
+public interface GenericDao<T, ID> {
 
     T save(T entity);
 
@@ -12,7 +12,7 @@ public interface GenericService<T , ID> {
 
     T findById(ID id);
 
-    List<T> findAll();
+    Set<T> findAll();
 
 
 }
