@@ -34,15 +34,13 @@ public class Cyclist {
     @JoinColumn(name = "team_id")
     private Team team;
 
-    @OneToMany(mappedBy = "cyclists")
+    @OneToMany(mappedBy = "cyclist")
     private Set<GeneralResult> generalResults;
 
-    @OneToMany(mappedBy = "cyclists")
+    @OneToMany(mappedBy = "cyclist")
     private Set<Result> results;
+
     public Cyclist(){}
-
-
-
 
 
 }

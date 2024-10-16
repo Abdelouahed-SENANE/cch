@@ -28,7 +28,10 @@ public class GeneralResult {
     @JoinColumn(name = "competition_id")
     private Competition competition;
 
+    @Column(name = "general_rank")
     private int generalRank;
+
+
     private Duration duration;
 
     @Override
