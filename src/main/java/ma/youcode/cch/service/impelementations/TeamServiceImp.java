@@ -1,5 +1,6 @@
 package ma.youcode.cch.service.impelementations;
 
+import ma.youcode.cch.dao.interfaces.CyclistDao;
 import ma.youcode.cch.entity.Team;
 import ma.youcode.cch.dao.interfaces.TeamDao;
 import ma.youcode.cch.service.interfaces.TeamService;
@@ -12,8 +13,8 @@ import java.util.UUID;
 @Service
 public class TeamServiceImp implements TeamService {
 
-    @Autowired
-    private TeamDao teamDao;
+    private final TeamDao teamDao;
+    public TeamServiceImp(TeamDao teamDao) {this.teamDao = teamDao;}
 
     @Override
     public Team saveTeam(Team team) {

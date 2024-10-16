@@ -32,8 +32,17 @@
         </property>
     </bean>
 
+    <bean id="competitionServiceImp" class="ma.youcode.cch.service.impelementations.CompetitionServiceImp">
+        <constructor-arg name="competitionDao" ref="competitionDaoImp"/>
+    </bean>
 
-    <bean id="teamDao" class="ma.youcode.cch.dao.implementations.TeamDaoImp"/>
+    <bean id="cyclistServiceImp" class="ma.youcode.cch.service.impelementations.CyclistServiceImp">
+        <constructor-arg name="cyclistDao" ref="cyclistDaoImp"/>
+    </bean>
+
+    <bean id="teamServiceImp" class="ma.youcode.cch.service.impelementations.TeamServiceImp">
+        <constructor-arg name="teamDao" ref="teamDaoImp"/>
+    </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
