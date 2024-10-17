@@ -34,10 +34,10 @@ public class Cyclist {
     @JoinColumn(name = "team_id" , nullable = false)
     private Team team;
 
-    @OneToMany(mappedBy = "cyclist" , fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cyclist" , fetch = FetchType.EAGER)
     private Set<GeneralResult> generalResults;
 
-    @OneToMany(mappedBy = "cyclist" , fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cyclist" , fetch = FetchType.EAGER)
     private Set<Result> results;
 
     public Cyclist(){}

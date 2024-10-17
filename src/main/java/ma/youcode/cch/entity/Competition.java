@@ -26,7 +26,7 @@ public class Competition {
     private String competitionName;
 
 
-    @Column(unique = true , nullable = false)
+    @Column(name = "competition_year", unique = true , nullable = false)
     private Year year;
 
     @Column(name = "start_date")
