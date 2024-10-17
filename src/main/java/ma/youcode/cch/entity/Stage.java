@@ -30,7 +30,7 @@ public class Stage {
     private String type;
 
     @ManyToOne
-    @JoinColumn(name = "competition_id")
+    @JoinColumn(name = "competition_id" , nullable = false)
     private Competition competition;
 
     @Column(name = "start_date")

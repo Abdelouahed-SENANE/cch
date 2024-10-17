@@ -21,7 +21,7 @@ public class Team {
     @Column(name = "team_name")
     private String teamName;
 
-    @OneToMany(mappedBy = "team" , cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "team" , fetch = FetchType.EAGER)
     private Set<Cyclist> cyclists;
 
 }

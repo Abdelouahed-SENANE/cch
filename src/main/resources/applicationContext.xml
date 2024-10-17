@@ -44,6 +44,9 @@
         <constructor-arg name="teamDao" ref="teamDaoImp"/>
     </bean>
 
+    <bean id="stageServiceImp" class="ma.youcode.cch.service.impelementations.StageServiceImp">
+        <constructor-arg name="stageDao" ref="stageDaoImp"/>
+    </bean>
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">

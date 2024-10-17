@@ -22,27 +22,23 @@ public class Competition {
     @Column(name = "competetion_id")
     private UUID competitionId;
 
-    @NotEmpty
     @Column(name = "competition_name" , unique = true , nullable = false)
     private String competitionName;
 
-    @NotEmpty
+
     @Column(unique = true , nullable = false)
     private Year year;
 
-    @NotEmpty
     @Column(name = "start_date")
     private LocalDateTime startDate;
 
-    @NotEmpty
     @Column(name = "end_date")
     private LocalDateTime endDate;
 
     @OneToMany(mappedBy = "competition")
     private Set<GeneralResult> generalResults;
 
-    @OneToMany
-    @JoinColumn(name = "competition_id")
+    @OneToMany(mappedBy = "competition")
     Set<Stage> stages;
 
     public Competition(){}
