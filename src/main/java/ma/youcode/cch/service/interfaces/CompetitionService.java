@@ -9,5 +9,5 @@ public interface CompetitionService {
     Competition saveCompetition(Competition competition);
     Competition updateCompetition(Competition competition);
     Competition deleteCompetition(Competition competition);
-    Set<Competition> findAllCompetitions();
+    Set<Competition> getAllCompetitions();
 }

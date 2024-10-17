@@ -3,12 +3,11 @@ package ma.youcode.cch.service.impelementations;
 import ma.youcode.cch.dao.interfaces.CompetitionDao;
 import ma.youcode.cch.entity.Competition;
 import ma.youcode.cch.service.interfaces.CompetitionService;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
-import java.util.UUID;
 
-@Service
+@Component
 public class CompetitionServiceImp implements CompetitionService {
 
     private final CompetitionDao competitionDao;
@@ -30,7 +29,7 @@ public class CompetitionServiceImp implements CompetitionService {
     }
 
     @Override
-    public Set<Competition> findAllCompetitions() {
+    public Set<Competition> getAllCompetitions() {
         return competitionDao.findAll();
     }
 }

@@ -32,7 +32,7 @@ public class TeamServiceImp implements TeamService {
     }
 
     @Override
-    public Set<Team> findAllTeams() {
+    public Set<Team> getAllTeams() {
         return teamDao.findAll();
     }
 

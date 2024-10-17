@@ -6,6 +6,7 @@ import ma.youcode.cch.service.interfaces.CyclistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -33,7 +34,12 @@ public class CyclistServiceImp  implements CyclistService {
     }
 
     @Override
-    public Set<Cyclist> findAllCyclists() {
+    public Set<Cyclist> getAllCyclists() {
         return cyclistDao.findAll();
+    }
+
+    @Override
+    public List<Cyclist> getSortedCyclists(String criteria) {
+        return cyclistDao.findSortedCyclists(criteria);
     }
 }

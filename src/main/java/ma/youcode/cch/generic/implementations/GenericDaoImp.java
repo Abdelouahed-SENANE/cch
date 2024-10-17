@@ -16,8 +16,9 @@ import java.util.Set;
 public abstract class GenericDaoImp<T , ID> implements GenericDao<T , ID> {
 
     @Autowired
-    private  SessionFactory sessionFactory;
-    private Class<T> entityClass;
+    protected  SessionFactory sessionFactory;
+
+    private final Class<T> entityClass;
 
     public GenericDaoImp(Class<T> entityClass) {
         this.entityClass = entityClass;
@@ -26,9 +27,12 @@ public abstract class GenericDaoImp<T , ID> implements GenericDao<T , ID> {
     @Override
     @Transactional
     public T save(T entity) {
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(entity);
-        return entity;
+        if (entity != null) {
+            Session session = sessionFactory.getCurrentSession();
+            session.persist(entity);
+            return entity;
+        }
+        return null;
     }
 
     @Override
@@ -36,7 +40,7 @@ public abstract class GenericDaoImp<T , ID> implements GenericDao<T , ID> {
     public T update(T entity) {
         if (entity != null) {
             Session session = sessionFactory.getCurrentSession();
-            return (T) session.merge(entity);
+            return  session.merge(entity);
         }
         return null;
     }
@@ -53,7 +57,6 @@ public abstract class GenericDaoImp<T , ID> implements GenericDao<T , ID> {
             return entity;
         }
         return null;
-
     }
 
     @Override
@@ -69,7 +72,6 @@ public abstract class GenericDaoImp<T , ID> implements GenericDao<T , ID> {
         try {
             String queryStr = "FROM " + entityClass.getName();
             List<T> listResult = session.createQuery(queryStr , entityClass).getResultList();
-
             results.addAll(listResult);
             transaction.commit();
         } catch (Exception e) {

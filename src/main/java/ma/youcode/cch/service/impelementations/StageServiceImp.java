@@ -30,7 +30,7 @@ public class StageServiceImp implements StageService {
     }
 
     @Override
-    public Set<Stage> findAllStages() {
+    public Set<Stage> getAllStages() {
         return stageDao.findAll();
     }
 

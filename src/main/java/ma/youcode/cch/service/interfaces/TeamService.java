@@ -11,6 +11,6 @@ public interface TeamService {
     Team saveTeam(Team team);
     Team updateTeam(Team team);
     Team deleteTeam(Team team);
-    Set<Team> findAllTeams();
+    Set<Team> getAllTeams();
     Team findTeam(UUID id);
 }

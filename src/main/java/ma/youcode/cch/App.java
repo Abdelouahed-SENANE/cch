@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Year;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -30,6 +31,20 @@ public class App {
         CyclistService cyclistService = context.getBean(CyclistService.class);
         CompetitionService competitionService = context.getBean(CompetitionService.class);
         StageService stageService = context.getBean(StageService.class);
+
+//        Team team = new Team();
+//        team.setTeamName("C");
+//        teamService.saveTeam(team);
+
+//        Cyclist cyclist = new Cyclist();
+//        cyclist.setFirstName("Mohammed");
+//        cyclist.setLastName("RATID");
+//        cyclist.setNationality("Z");
+//        cyclist.setAge("25");
+//        Team team = new Team();
+//        team.setTeamId(UUID.fromString("182fbd00-ba75-47f3-953a-5d2125b60ce5"));
+//        cyclist.setTeam(team);
+//        cyclistService.saveCyclist(cyclist);
 
 //        Stage stage = new Stage();
 //        stage.setNumber(1);
@@ -48,9 +63,9 @@ public class App {
 //        competition.setEndDate(LocalDateTime.of(2024 , 10 , 24 , 10 , 30));
 //        competitionService.saveCompetition(competition);
 
-        Set<Stage> stages = stageService.findAllStages();
-        stages.forEach(c -> {
-            System.out.println(c.getStartLocation() + "======>" + c.getEndLocation());
+        List<Cyclist> cyclists = cyclistService.getSortedCyclists("teamName");
+        cyclists.forEach(c -> {
+            System.out.println(c.getLastName());
         });
 
     }
