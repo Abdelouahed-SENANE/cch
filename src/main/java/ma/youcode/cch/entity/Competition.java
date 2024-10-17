@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Year;
 import java.util.Set;
@@ -30,15 +31,18 @@ public class Competition {
     private Year year;
 
     @Column(name = "start_date")
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
     @Column(name = "end_date")
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
-    @OneToMany(mappedBy = "competition")
+    @Column(name = "competition_place")
+    private String place;
+
+    @OneToMany(mappedBy = "competition" , fetch = FetchType.EAGER)
     private Set<GeneralResult> generalResults;
 
-    @OneToMany(mappedBy = "competition")
+    @OneToMany(mappedBy = "competition" , fetch = FetchType.EAGER)
     Set<Stage> stages;
 
     public Competition(){}

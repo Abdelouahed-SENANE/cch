@@ -5,6 +5,7 @@ import ma.youcode.cch.entity.Competition;
 import ma.youcode.cch.service.interfaces.CompetitionService;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 @Component
@@ -31,5 +32,10 @@ public class CompetitionServiceImp implements CompetitionService {
     @Override
     public Set<Competition> getAllCompetitions() {
         return competitionDao.findAll();
+    }
+
+    @Override
+    public Set<Competition> getFilteredCompetitions(String place, LocalDate startDate) {
+        return competitionDao.findFilteredCompetitions(place , startDate);
     }
 }

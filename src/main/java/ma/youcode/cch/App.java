@@ -10,6 +10,7 @@ import ma.youcode.cch.service.interfaces.CompetitionService;
 import ma.youcode.cch.service.interfaces.CyclistService;
 import ma.youcode.cch.service.interfaces.StageService;
 import ma.youcode.cch.service.interfaces.TeamService;
+import ma.youcode.cch.utils.DateTimeParser;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Year;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -31,7 +33,15 @@ public class App {
         CyclistService cyclistService = context.getBean(CyclistService.class);
         CompetitionService competitionService = context.getBean(CompetitionService.class);
         StageService stageService = context.getBean(StageService.class);
+        Set<Competition>  competitions = new HashSet<>();
+        String stringDate = "2025-09-10";
+        String place = "Casablanca";
+        LocalDate parsedDate = DateTimeParser.parseDate(stringDate);
+        if (parsedDate != null) {
+        competitions = competitionService.getFilteredCompetitions(place ,parsedDate);
+        }
 
+//        competitionService.getFilteredCompetitions()
 //        Team team = new Team();
 //        team.setTeamName("C");
 //        teamService.saveTeam(team);
@@ -57,15 +67,16 @@ public class App {
 //        stageService.saveStage(stage);
 
 //        Competition competition = new Competition();
-//        competition.setCompetitionName("Paris");
-//        competition.setYear(Year.of(2026));
-//        competition.setStartDate(LocalDateTime.of(2024 , 9 , 24 , 10 , 30));
-//        competition.setEndDate(LocalDateTime.of(2024 , 10 , 24 , 10 , 30));
+//        competition.setCompetitionName("Munich");
+//        competition.setYear(Year.of(2030));
+//        competition.setStartDate(LocalDate.of(2029 , 9 , 10));
+//        competition.setEndDate(LocalDate.of(2029 , 10 , 10));
+//        competition.setPlace("Munich");
 //        competitionService.saveCompetition(competition);
 
-        List<Cyclist> cyclists = cyclistService.getSortedCyclists("teamName");
-        cyclists.forEach(c -> {
-            System.out.println(c.getLastName());
+//        List<Cyclist> cyclists = cyclistService.getSortedCyclists("nationality");
+        competitions.forEach(c -> {
+            System.out.println(c.getCompetitionName() + c.getYear());
         });
 
     }

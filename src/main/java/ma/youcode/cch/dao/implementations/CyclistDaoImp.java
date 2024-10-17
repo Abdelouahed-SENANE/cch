@@ -9,20 +9,16 @@ import ma.youcode.cch.entity.Team;
 import ma.youcode.cch.generic.implementations.GenericDaoImp;
 import ma.youcode.cch.dao.interfaces.CyclistDao;
 import org.hibernate.Session;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Repository
 public class CyclistDaoImp extends GenericDaoImp<Cyclist, UUID> implements CyclistDao {
 
-    public CyclistDaoImp(LocalSessionFactoryBean sessionFactory){super(Cyclist.class);
-    }
+    public CyclistDaoImp(){super(Cyclist.class);}
 
     @Override
     @Transactional
@@ -56,4 +52,6 @@ public class CyclistDaoImp extends GenericDaoImp<Cyclist, UUID> implements Cycli
         cyclists = session.createQuery(criteriaQuery).getResultList();
         return cyclists;
     }
+
+
 }
