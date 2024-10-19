@@ -20,7 +20,7 @@ public class Competition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "competetion_id")
+    @Column(name = "competition_id")
     private UUID competitionId;
 
     @Column(name = "competition_name" , unique = true , nullable = false)
@@ -39,10 +39,13 @@ public class Competition {
     @Column(name = "competition_place")
     private String place;
 
+    @Column(name = "number_of_stages")
+    private int numberOfStage;
+
     @OneToMany(mappedBy = "competition" , fetch = FetchType.EAGER)
     private Set<GeneralResult> generalResults;
 
-    @OneToMany(mappedBy = "competition" , fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "competition" , cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     Set<Stage> stages;
 
     public Competition(){}

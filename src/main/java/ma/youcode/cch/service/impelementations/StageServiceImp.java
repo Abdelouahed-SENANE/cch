@@ -1,10 +1,12 @@
 package ma.youcode.cch.service.impelementations;
 
-import ma.youcode.cch.dao.interfaces.StageDao;
+import ma.youcode.cch.daos.interfaces.StageDao;
 import ma.youcode.cch.entity.Stage;
 import ma.youcode.cch.service.interfaces.StageService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -15,7 +17,7 @@ public class StageServiceImp implements StageService {
     public StageServiceImp(StageDao stageDao){this.stageDao = stageDao;}
 
     @Override
-    public Stage saveStage(Stage Stage) {
+    public Stage createStage(Stage Stage) {
         return stageDao.save(Stage);
     }
 
@@ -35,7 +37,12 @@ public class StageServiceImp implements StageService {
     }
 
     @Override
-    public Stage findStage(UUID id) {
-        return null;
+    public Optional<Stage> getStage(UUID id) {
+        return stageDao.findById(id);
     }
+
+//    @Override
+//    public List<Stage> getStagesByCompetitionId(UUID id) {
+//        return stageDao.findStagesByCompetitionId(id);
+//    }
 }

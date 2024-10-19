@@ -36,6 +36,11 @@
         <constructor-arg name="competitionDao" ref="competitionDaoImp"/>
     </bean>
 
+    <bean id="generalResultDaoImp" class="ma.youcode.cch.daos.implementations.GeneralResultDaoImp" />
+    <bean id="competitionDaoImp" class="ma.youcode.cch.daos.implementations.CompetitionDaoImp" />
+    <bean id="cyclistDaoImp" class="ma.youcode.cch.daos.implementations.CyclistDaoImp" />
+    <bean id="resultDaoImp" class="ma.youcode.cch.daos.implementations.ResultDaoImp" />
+
     <bean id="cyclistServiceImp" class="ma.youcode.cch.service.impelementations.CyclistServiceImp">
         <constructor-arg name="cyclistDao" ref="cyclistDaoImp"/>
     </bean>

@@ -1,4 +1,4 @@
-package ma.youcode.cch.dao.implementations;
+package ma.youcode.cch.daos.implementations;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -7,7 +7,7 @@ import jakarta.persistence.criteria.Root;
 import ma.youcode.cch.entity.Cyclist;
 import ma.youcode.cch.entity.Team;
 import ma.youcode.cch.generic.implementations.GenericDaoImp;
-import ma.youcode.cch.dao.interfaces.CyclistDao;
+import ma.youcode.cch.daos.interfaces.CyclistDao;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

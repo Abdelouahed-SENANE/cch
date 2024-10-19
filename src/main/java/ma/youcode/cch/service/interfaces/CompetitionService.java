@@ -8,10 +8,10 @@ import java.util.Set;
 import java.util.UUID;
 
 public interface CompetitionService {
-    Competition saveCompetition(Competition competition);
+    Competition createCompetition(Competition competition);
     Competition updateCompetition(Competition competition);
     Competition deleteCompetition(Competition competition);
     Set<Competition> getAllCompetitions();
-
     Set<Competition> getFilteredCompetitions(String place , LocalDate startDate);
+    Competition getCompetition(UUID id);
 }

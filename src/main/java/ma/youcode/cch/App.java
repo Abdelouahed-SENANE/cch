@@ -2,19 +2,16 @@ package ma.youcode.cch;
 
 
 
-import ma.youcode.cch.entity.Competition;
-import ma.youcode.cch.entity.Cyclist;
-import ma.youcode.cch.entity.Stage;
-import ma.youcode.cch.entity.Team;
-import ma.youcode.cch.service.interfaces.CompetitionService;
-import ma.youcode.cch.service.interfaces.CyclistService;
-import ma.youcode.cch.service.interfaces.StageService;
-import ma.youcode.cch.service.interfaces.TeamService;
+import jakarta.validation.constraints.Past;
+import ma.youcode.cch.entity.*;
+import ma.youcode.cch.entity.embedded.GeneralResultId;
+import ma.youcode.cch.service.interfaces.*;
 import ma.youcode.cch.utils.DateTimeParser;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Year;
@@ -33,51 +30,100 @@ public class App {
         CyclistService cyclistService = context.getBean(CyclistService.class);
         CompetitionService competitionService = context.getBean(CompetitionService.class);
         StageService stageService = context.getBean(StageService.class);
-        Set<Competition>  competitions = new HashSet<>();
-        String stringDate = "2025-09-10";
-        String place = "Casablanca";
-        LocalDate parsedDate = DateTimeParser.parseDate(stringDate);
-        if (parsedDate != null) {
-        competitions = competitionService.getFilteredCompetitions(place ,parsedDate);
-        }
+        GeneralResultService generalResultService = context.getBean(GeneralResultService.class);
+        ResultService resultService = context.getBean(ResultService.class);
+
+
+
+
+
+//        UUID cyclistId = UUID.fromString("da346d6b-c80e-4701-88ce-7943bbbe284a");
+//        UUID competitionId = UUID.fromString("a6d2a5b9-f296-4f0c-b856-01a93eb4f81b");
+//
+//        try {
+//            resultService.saveResult(cyclistId, competitionId);
+//            System.out.println("This cyclist can added on this stage ");
+//        }catch (IllegalArgumentException e) {
+//            System.out.println(e.getMessage());
+//        }
+
+//        Competition competition = new Competition();
+//        competition.setCompetitionId(UUID.fromString("a6d2a5b9-f296-4f0c-b856-01a93eb4f81b"));
+//        Cyclist cyclist = new Cyclist();
+//        cyclist.setCyclistId(UUID.fromString("da346d6b-c80e-4701-88ce-7943bbbe284a"));
+////
+//        GeneralResultId generalResultId = new GeneralResultId();
+//        generalResultId.setCompetitionId(competition.getCompetitionId());
+//        generalResultId.setCyclistId(cyclist.getCyclistId());
+//        GeneralResult generalResult = new GeneralResult();
+//        generalResult.setGeneralResultId(generalResultId);
+//        generalResult.setCompetition(competition);
+//        generalResult.setCyclist(cyclist);
+//        generalResult.setGeneralRank(0);
+//        generalResult.setDuration(Duration.ofMinutes(100));
+//        generalResultService.saveGeneralResult(generalResult);
+
+
+
+
+//        Set<Competition>  competitions = new HashSet<>();
+//        String stringDate = "2025-09-10";
+//        String place = "Casablanca";
+//        LocalDate parsedDate = DateTimeParser.parseDate(stringDate);
+//        if (parsedDate != null) {
+//        competitions = competitionService.getFilteredCompetitions(place ,parsedDate);
+//        }
 
 //        competitionService.getFilteredCompetitions()
+
+//        Ajouter Team
 //        Team team = new Team();
-//        team.setTeamName("C");
+//        team.setTeamName("H");
 //        teamService.saveTeam(team);
+
 
 //        Cyclist cyclist = new Cyclist();
 //        cyclist.setFirstName("Mohammed");
-//        cyclist.setLastName("RATID");
-//        cyclist.setNationality("Z");
-//        cyclist.setAge("25");
+//        cyclist.setLastName("DOKHANA");
+//        cyclist.setNationality("M");
+//        cyclist.setAge("28");
 //        Team team = new Team();
-//        team.setTeamId(UUID.fromString("182fbd00-ba75-47f3-953a-5d2125b60ce5"));
+//        team.setTeamId(UUID.fromString("21654fe6-488f-48b9-a2db-7e2592b4e442"));
 //        cyclist.setTeam(team);
 //        cyclistService.saveCyclist(cyclist);
 
-//        Stage stage = new Stage();
-//        stage.setNumber(1);
-//        stage.setStartDate(LocalDate.of(2024 , 9 , 22));
-//        stage.setStartLocation("London");
-//        stage.setEndLocation("Paris");
-//        Competition competition = new Competition();
-//        competition.setCompetitionId(UUID.fromString("e07e16d1-3668-4a1c-8ede-abe3b8b06e30"));
-//        stage.setCompetition(competition);
-//        stageService.saveStage(stage);
 
-//        Competition competition = new Competition();
-//        competition.setCompetitionName("Munich");
-//        competition.setYear(Year.of(2030));
-//        competition.setStartDate(LocalDate.of(2029 , 9 , 10));
-//        competition.setEndDate(LocalDate.of(2029 , 10 , 10));
-//        competition.setPlace("Munich");
-//        competitionService.saveCompetition(competition);
 
-//        List<Cyclist> cyclists = cyclistService.getSortedCyclists("nationality");
-        competitions.forEach(c -> {
-            System.out.println(c.getCompetitionName() + c.getYear());
-        });
+        Competition competition = new Competition();
+        competition.setCompetitionName("Eljadida");
+        competition.setNumberOfStage(5);
+        competition.setYear(Year.of(2025));
+        competition.setStartDate(LocalDate.of(2029 , 9 , 10));
+        competition.setEndDate(LocalDate.of(2029 , 10 , 10));
+        competition.setPlace("El jadida");
+
+        Set<Stage> stages = new HashSet<>();
+
+            for (int i = 1 ; i <= competition.getNumberOfStage() ; i++) {
+                Stage stage = new Stage();
+                stage.setStageNumber(i);
+                stage.setCompetition(competition);
+                stage.setStageType("Contre le montre");
+                stage.setStartLocation("Marrakesh");
+                stage.setEndLocation("Casablanca");
+                stage.setStartDate(LocalDate.of(2024 , 10 , 1));
+                stages.add(stage);
+            }
+            competition.setStages(stages);
+
+        competitionService.saveCompetition(competition);
+
+
+//        List<Stage> stagesByCompetitionId = stageService.getStagesByCompetitionId(UUID.fromString("a6d2a5b9-f296-4f0c-b856-01a93eb4f81b"));
+//        stagesByCompetitionId.forEach(c -> {
+//            System.out.print(c.getStageNumber());
+//            System.out.println();
+//        });
 
     }
 

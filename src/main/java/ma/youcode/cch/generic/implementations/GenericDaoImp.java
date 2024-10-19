@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Repository
@@ -29,8 +30,7 @@ public abstract class GenericDaoImp<T , ID> implements GenericDao<T , ID> {
     public T save(T entity) {
         if (entity != null) {
             Session session = sessionFactory.getCurrentSession();
-            session.persist(entity);
-            return entity;
+            return session.merge(entity);
         }
         return null;
     }
@@ -60,8 +60,13 @@ public abstract class GenericDaoImp<T , ID> implements GenericDao<T , ID> {
     }
 
     @Override
-    public T findById(ID id) {
-        return null;
+    @Transactional
+    public Optional<T> findById(ID id) {
+        if(id != null) {
+            Session session = sessionFactory.getCurrentSession();
+            return Optional.ofNullable(session.get(entityClass , id));
+        }
+        return Optional.empty();
     }
 
     @Override

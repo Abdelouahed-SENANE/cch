@@ -1,6 +1,6 @@
 package ma.youcode.cch.service.impelementations;
 
-import ma.youcode.cch.dao.interfaces.CompetitionDao;
+import ma.youcode.cch.daos.interfaces.CompetitionDao;
 import ma.youcode.cch.entity.Competition;
 import ma.youcode.cch.service.interfaces.CompetitionService;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ public class CompetitionServiceImp implements CompetitionService {
     public CompetitionServiceImp(CompetitionDao competitionDao){this.competitionDao = competitionDao;}
 
     @Override
-    public Competition saveCompetition(Competition competition) {
+    public Competition createCompetition(Competition competition) {
         return competitionDao.save(competition);
     }
 

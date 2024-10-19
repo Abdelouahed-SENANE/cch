@@ -1,14 +1,12 @@
 package ma.youcode.cch.service.impelementations;
 
-import ma.youcode.cch.dao.interfaces.CyclistDao;
+import ma.youcode.cch.daos.interfaces.CyclistDao;
 import ma.youcode.cch.entity.Cyclist;
 import ma.youcode.cch.service.interfaces.CyclistService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 @Service
 public class CyclistServiceImp  implements CyclistService {
@@ -19,7 +17,7 @@ public class CyclistServiceImp  implements CyclistService {
 
 
     @Override
-    public Cyclist saveCyclist(Cyclist cyclist) {
+    public Cyclist createCyclist(Cyclist cyclist) {
         return cyclistDao.save(cyclist);
     }
 

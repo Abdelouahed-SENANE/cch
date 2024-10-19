@@ -1,4 +1,4 @@
-package ma.youcode.cch.dao.interfaces;
+package ma.youcode.cch.daos.interfaces;
 
 import ma.youcode.cch.entity.Competition;
 import ma.youcode.cch.generic.interfaces.GenericDao;

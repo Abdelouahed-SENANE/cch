@@ -2,14 +2,17 @@ package ma.youcode.cch.service.interfaces;
 
 import ma.youcode.cch.entity.Stage;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
 public interface StageService {
 
-    Stage saveStage(Stage Stage);
+    Stage createStage(Stage Stage);
     Stage updateStage(Stage Stage);
     Stage deleteStage(Stage Stage);
     Set<Stage> getAllStages();
-    Stage findStage(UUID id);
+    Optional<Stage> getStage(UUID id);
+//    List<Stage> getStagesByCompetitionId(UUID id);
 }

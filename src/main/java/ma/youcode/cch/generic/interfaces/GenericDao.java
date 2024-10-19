@@ -1,5 +1,6 @@
 package ma.youcode.cch.generic.interfaces;
 
+import java.util.Optional;
 import java.util.Set;
 
 public interface GenericDao<T, ID> {
@@ -10,7 +11,7 @@ public interface GenericDao<T, ID> {
 
     T delete(T entity);
 
-    T findById(ID id);
+    Optional<T> findById(ID id);
 
     Set<T> findAll();
 

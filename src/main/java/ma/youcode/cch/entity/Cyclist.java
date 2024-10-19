@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -38,9 +39,8 @@ public class Cyclist {
     private Set<GeneralResult> generalResults;
 
     @OneToMany(mappedBy = "cyclist" , fetch = FetchType.EAGER)
-    private Set<Result> results;
+    private Set<Result> results = new HashSet<>();
 
     public Cyclist(){}
-
 
 }

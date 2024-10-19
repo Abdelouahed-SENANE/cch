@@ -1,10 +1,8 @@
 package ma.youcode.cch.service.impelementations;
 
-import ma.youcode.cch.dao.interfaces.CyclistDao;
 import ma.youcode.cch.entity.Team;
-import ma.youcode.cch.dao.interfaces.TeamDao;
+import ma.youcode.cch.daos.interfaces.TeamDao;
 import ma.youcode.cch.service.interfaces.TeamService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -17,7 +15,7 @@ public class TeamServiceImp implements TeamService {
     public TeamServiceImp(TeamDao teamDao) {this.teamDao = teamDao;}
 
     @Override
-    public Team saveTeam(Team team) {
+    public Team createTeam(Team team) {
         return teamDao.save(team);
     }
 
@@ -37,7 +35,7 @@ public class TeamServiceImp implements TeamService {
     }
 
     @Override
-    public Team findTeam(UUID id) {
+    public Team getTeam(UUID id) {
         return null;
     }
 }

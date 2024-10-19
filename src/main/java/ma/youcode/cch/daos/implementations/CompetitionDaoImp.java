@@ -1,13 +1,12 @@
-package ma.youcode.cch.dao.implementations;
+package ma.youcode.cch.daos.implementations;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import ma.youcode.cch.entity.Competition;
-import ma.youcode.cch.entity.Stage;
 import ma.youcode.cch.generic.implementations.GenericDaoImp;
-import ma.youcode.cch.dao.interfaces.CompetitionDao;
+import ma.youcode.cch.daos.interfaces.CompetitionDao;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;

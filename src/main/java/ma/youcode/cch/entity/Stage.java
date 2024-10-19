@@ -7,6 +7,8 @@ import org.hibernate.annotations.ManyToAny;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -25,9 +27,11 @@ public class Stage {
     @Column(name = "end_location")
     private String endLocation;
 
-    private int number;
+    @Column(name = "stage_number")
+    private int stageNumber;
 
-    private String type;
+    @Column(name = "stage_type")
+    private String stageType;
 
     @ManyToOne
     @JoinColumn(name = "competition_id" , nullable = false)
@@ -35,6 +39,9 @@ public class Stage {
 
     @Column(name = "start_date")
     private LocalDate startDate;
+
+    @OneToMany(mappedBy = "stage")
+    Set<Result> results = new HashSet<>();
 
 
 }

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface CyclistService {
 
-    Cyclist saveCyclist(Cyclist cyclist);
+    Cyclist createCyclist(Cyclist cyclist);
     Cyclist updateCyclist(Cyclist cyclist);
     Cyclist deleteCyclist(Cyclist cyclist);
     Set<Cyclist> getAllCyclists();
