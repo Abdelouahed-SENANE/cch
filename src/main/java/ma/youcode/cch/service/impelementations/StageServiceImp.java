@@ -47,8 +47,14 @@ public class StageServiceImp implements StageService {
     }
 
     @Override
-    public Stage updateStage(Stage Stage) {
-        return stageDao.update(Stage);
+    public Stage updateStage(Stage stage) {
+        Optional<Stage> stageOptional = stageDao.findById(stage.getStageId());
+        if (stageOptional.isPresent()) {
+            Stage getStage = stageOptional.get();
+            stage.setStageNumber(getStage.getStageNumber());
+            return stageDao.update(stage);
+        }
+        return null;
     }
 
     @Override

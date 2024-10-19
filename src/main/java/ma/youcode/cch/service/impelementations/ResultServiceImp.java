@@ -37,12 +37,6 @@ public class ResultServiceImp implements ResultService {
         Competition competition = competitionDao.findById(competitionId).orElseThrow(() -> new EntityNotFoundException("Competition is not exists "));
         Cyclist cyclist = cyclistDao.findById(cyclistId).orElseThrow(() -> new EntityNotFoundException("Cyclist  is not exists "));
 
-//        if (opCyclist.isPresent() && !competition.isEmpty()) {
-//            cyclist = opCyclist.get();
-//        } else {
-//            throw new IllegalArgumentException("Cannot added this because stage and cyclist not exist");
-//        }
-
         GeneralResultId generalResultId = new GeneralResultId();
         generalResultId.setCompetitionId(competition.getCompetitionId());
         generalResultId.setCyclistId(cyclist.getCyclistId());
@@ -51,6 +45,7 @@ public class ResultServiceImp implements ResultService {
         if (generalResult.isEmpty()) {
              throw new EntityNotFoundException("The cyclist cannot added on this stage because is not register in this competition " + competition.getCompetitionName());
         }
+
         Set<Stage> stages = competition.getStages();
         for (Stage stage : stages) {
             Result result = new Result();
@@ -67,7 +62,14 @@ public class ResultServiceImp implements ResultService {
 
     @Override
     public Result updateResult(Result result) {
-        return resultDao.update(result);
+
+        Optional<Result> optionalResult = resultDao.findById(result.getResultId());
+
+        if (optionalResult.isPresent()) {
+            return resultDao.update(result);
+        }
+
+        return null;
     }
 
     @Override

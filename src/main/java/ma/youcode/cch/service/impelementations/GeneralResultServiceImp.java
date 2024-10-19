@@ -31,6 +31,8 @@ public class GeneralResultServiceImp implements GeneralResultService {
         Optional<Cyclist> cyclist = cyclistDao.findById(generalResult.getGeneralResultId().getCyclistId());
         Optional<Competition> competition = competitionDao.findById(generalResult.getGeneralResultId().getCompetitionId());
 
+
+
         if (cyclist.isPresent() && competition.isPresent()) {
             return generalResultDao.save(generalResult);
         }else {

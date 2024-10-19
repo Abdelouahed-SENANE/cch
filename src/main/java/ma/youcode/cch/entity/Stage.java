@@ -40,7 +40,7 @@ public class Stage {
     @Column(name = "start_date")
     private LocalDate startDate;
 
-    @OneToMany(mappedBy = "stage")
+    @OneToMany(mappedBy = "stage" , fetch = FetchType.EAGER)
     Set<Result> results = new HashSet<>();
 
 
