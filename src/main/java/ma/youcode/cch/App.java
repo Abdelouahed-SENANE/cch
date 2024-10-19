@@ -1,7 +1,6 @@
 package ma.youcode.cch;
 
 
-
 import jakarta.validation.constraints.Past;
 import ma.youcode.cch.entity.*;
 import ma.youcode.cch.entity.embedded.GeneralResultId;
@@ -34,9 +33,6 @@ public class App {
         ResultService resultService = context.getBean(ResultService.class);
 
 
-
-
-
 //        UUID cyclistId = UUID.fromString("da346d6b-c80e-4701-88ce-7943bbbe284a");
 //        UUID competitionId = UUID.fromString("a6d2a5b9-f296-4f0c-b856-01a93eb4f81b");
 //
@@ -62,8 +58,6 @@ public class App {
 //        generalResult.setGeneralRank(0);
 //        generalResult.setDuration(Duration.ofMinutes(100));
 //        generalResultService.saveGeneralResult(generalResult);
-
-
 
 
 //        Set<Competition>  competitions = new HashSet<>();
@@ -92,32 +86,13 @@ public class App {
 //        cyclist.setTeam(team);
 //        cyclistService.saveCyclist(cyclist);
 
+        Stage stage = new Stage();
+        stage.setStageType("Contre le montre");
+        stage.setStartLocation("Marrakesh");
+        stage.setEndLocation("Casablanca");
+        stage.setStartDate(LocalDate.of(2024, 10, 1));
 
-
-        Competition competition = new Competition();
-        competition.setCompetitionName("Eljadida");
-        competition.setNumberOfStage(5);
-        competition.setYear(Year.of(2025));
-        competition.setStartDate(LocalDate.of(2029 , 9 , 10));
-        competition.setEndDate(LocalDate.of(2029 , 10 , 10));
-        competition.setPlace("El jadida");
-
-        Set<Stage> stages = new HashSet<>();
-
-            for (int i = 1 ; i <= competition.getNumberOfStage() ; i++) {
-                Stage stage = new Stage();
-                stage.setStageNumber(i);
-                stage.setCompetition(competition);
-                stage.setStageType("Contre le montre");
-                stage.setStartLocation("Marrakesh");
-                stage.setEndLocation("Casablanca");
-                stage.setStartDate(LocalDate.of(2024 , 10 , 1));
-                stages.add(stage);
-            }
-            competition.setStages(stages);
-
-        competitionService.saveCompetition(competition);
-
+        stageService.createStage(stage);
 
 //        List<Stage> stagesByCompetitionId = stageService.getStagesByCompetitionId(UUID.fromString("a6d2a5b9-f296-4f0c-b856-01a93eb4f81b"));
 //        stagesByCompetitionId.forEach(c -> {

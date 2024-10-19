@@ -6,7 +6,9 @@ import ma.youcode.cch.service.interfaces.CompetitionService;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 @Component
 public class CompetitionServiceImp implements CompetitionService {
@@ -37,5 +39,10 @@ public class CompetitionServiceImp implements CompetitionService {
     @Override
     public Set<Competition> getFilteredCompetitions(String place, LocalDate startDate) {
         return competitionDao.findFilteredCompetitions(place , startDate);
+    }
+
+    @Override
+    public Optional<Competition> getCompetition(UUID id) {
+        return competitionDao.findById(id);
     }
 }
