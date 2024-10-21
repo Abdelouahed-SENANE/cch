@@ -15,6 +15,10 @@ public class CyclistServiceImp  implements CyclistService {
 
     public CyclistServiceImp(CyclistDao cyclistDao) {this.cyclistDao = cyclistDao;}
 
+//    @Override
+//    public String test() {
+//        return "The  dependency Injection is worked fine";
+//    }
 
     @Override
     public Cyclist createCyclist(Cyclist cyclist) {

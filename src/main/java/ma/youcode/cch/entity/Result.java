@@ -29,7 +29,8 @@ public class Result {
     @Column(name = "stage_rank")
     private int stageRank;
 
-    private Duration duration;
+    @Column(name = "stage_duration")
+    private Duration stageDuration;
 
 
 }

@@ -4,7 +4,6 @@ import ma.youcode.cch.entity.Cyclist;
 
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 public interface CyclistService {
 
@@ -14,5 +13,6 @@ public interface CyclistService {
     Set<Cyclist> getAllCyclists();
     List<Cyclist> getSortedCyclists(String criteria);
 
+//    public String test();
 
 }

@@ -1,10 +1,8 @@
 package ma.youcode.cch.entity.embedded;
 
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
-import ma.youcode.cch.entity.Result;
 
 import java.io.Serializable;
 import java.util.Objects;

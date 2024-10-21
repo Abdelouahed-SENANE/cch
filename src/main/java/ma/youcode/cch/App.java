@@ -1,20 +1,12 @@
 package ma.youcode.cch;
 
 
-import jakarta.validation.constraints.Past;
-import ma.youcode.cch.entity.*;
-import ma.youcode.cch.entity.embedded.GeneralResultId;
-import ma.youcode.cch.entity.embedded.ResultId;
+import ma.youcode.cch.controller.CyclistController;
 import ma.youcode.cch.service.interfaces.*;
-import ma.youcode.cch.utils.DateTimeParser;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Year;
 import java.util.*;
 
 @Component
@@ -23,19 +15,25 @@ public class App {
     public static void main(String[] args) {
 
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        TeamService teamService = context.getBean(TeamService.class);
-        CyclistService cyclistService = context.getBean(CyclistService.class);
-        CompetitionService competitionService = context.getBean(CompetitionService.class);
-        StageService stageService = context.getBean(StageService.class);
-        GeneralResultService generalResultService = context.getBean(GeneralResultService.class);
-        ResultService resultService = context.getBean(ResultService.class);
-
-
-        UUID cyclistId = UUID.fromString("ae4e6f37-9e73-4073-b9a3-96fb33d53622");
-        UUID competitionId = UUID.fromString("a6d2a5b9-f296-4f0c-b856-01a93eb4f81b");
+//        TeamService teamService = context.getBean(TeamService.class);
+//        CyclistService cyclistService = context.getBean(CyclistService.class);
+//        CompetitionService competitionService = context.getBean(CompetitionService.class);
+//        StageService stageService = context.getBean(StageService.class);
+//        GeneralResultService generalResultService = context.getBean(GeneralResultService.class);
+//        ResultService resultService = context.getBean(ResultService.class);
 //
+//
+//        UUID cyclistId = UUID.fromString("8a612246-5284-43ec-8619-795f09a3bd1c");
+//        UUID competitionId = UUID.fromString("c25768dd-51f8-43af-ba82-c85b6c09c30a");
+//        UUID stageId = UUID.fromString("2a33a503-7f8b-4377-a78e-59b8a4752f1c");
+////
+//        ResultId resultId = new ResultId();
+//        resultId.setCyclistId(cyclistId);
+//        resultId.setStageId(stageId);
+//        Result result = new Result();
+//        result.setResultId(resultId);
 //        try {
-//            resultService.createResult(cyclistId, competitionId);
+//            resultService.createResult(result);
 //            System.out.println("This cyclist can added on this stage ");
 //        }catch (IllegalArgumentException e) {
 //            System.out.println(e.getMessage());
@@ -53,6 +51,15 @@ public class App {
 //        cyclist.setCyclistId(UUID.fromString("da346d6b-c80e-4701-88ce-7943bbbe284a"));
 ////
 //        Competition competition = new Competition();
+//        competition.setCompetitionName("Tokyo");
+//        competition.setStartDate(LocalDate.of(2024, 10, 1));
+//        competition.setEndDate(LocalDate.of(2024, 12, 1));
+//        competition.setYear(Year.of(2024));
+//        competition.setNumberOfStage(3);
+//        competitionService.createCompetition(competition);
+
+
+//        Competition competition = new Competition();
 //        competition.setCompetitionId(competitionId);
 //        Cyclist cyclist = new Cyclist();
 //        cyclist.setCyclistId(cyclistId);
@@ -63,8 +70,8 @@ public class App {
 //        generalResult.setGeneralResultId(generalResultId);
 //        generalResult.setCompetition(competition);
 //        generalResult.setCyclist(cyclist);
-//        generalResult.setGeneralRank(0);
-//        generalResult.setDuration(Duration.ofMinutes(100));
+//        generalResult.setOverallRank(0);
+//        generalResult.setOverallDuration(Duration.ofMinutes(100));
 //        generalResultService.createGeneralResult(generalResult);
 
 
@@ -80,31 +87,30 @@ public class App {
 
 //        Ajouter Team
 //        Team team = new Team();
-//        team.setTeamName("H");
-//        teamService.saveTeam(team);
+//        team.setTeamName("B");
+//        teamService.createTeam(team);
 
 
 //        Cyclist cyclist = new Cyclist();
-//        cyclist.setFirstName("Mohammed");
-//        cyclist.setLastName("DOKHANA");
-//        cyclist.setNationality("M");
-//        cyclist.setAge("28");
+//        cyclist.setFirstName("Salah");
+//        cyclist.setLastName("LAKHDAR");
+//        cyclist.setNationality("A");
+//        cyclist.setAge("30");
 //        Team team = new Team();
-//        team.setTeamId(UUID.fromString("21654fe6-488f-48b9-a2db-7e2592b4e442"));
+//        team.setTeamId(UUID.fromString("5e3c2a98-f705-4fee-9d31-3bdd9c52648a"));
 //        cyclist.setTeam(team);
-//        cyclistService.saveCyclist(cyclist);
+//        cyclistService.createCyclist(cyclist);
 
 //        Stage stage = new Stage();
-//        stage.setStageId(UUID.fromString("22f7023b-f33f-45b8-9f40-8426c8b91178"));
+////        stage.setStageId(UUID.fromString("22f7023b-f33f-45b8-9f40-8426c8b91178"));
 //        stage.setStageType("Contre le monde");
 //        stage.setStartLocation("Munich");
-//        stage.setEndLocation("London");
+//        stage.setEndLocation("Paris");
 //        Competition competition = new Competition();
-//        competition.setCompetitionId(UUID.fromString("a6d2a5b9-f296-4f0c-b856-01a93eb4f81b"));
+//        competition.setCompetitionId(UUID.fromString("c25768dd-51f8-43af-ba82-c85b6c09c30a"));
 //        stage.setCompetition(competition);
 //        stage.setStartDate(LocalDate.of(2024, 10, 1));
-//
-//        stageService.updateStage(stage);
+//       stageService.createStage(stage);
 
 //        List<Stage> stagesByCompetitionId = stageService.getStagesByCompetitionId(UUID.fromString("a6d2a5b9-f296-4f0c-b856-01a93eb4f81b"));
 //        stagesByCompetitionId.forEach(c -> {
@@ -112,17 +118,17 @@ public class App {
 //            System.out.println();
 //        });
 
-        Optional<Stage> stageOptional = stageService.getStage(UUID.fromString("1c18bf4b-0312-4096-96a8-51d7b2a28503"));
-        if (stageOptional.isPresent())
-        {
-            Stage stage = stageOptional.get();
-            System.out.println(stage.getCompetition().getCompetitionName());
-            System.out.println(stage.getStageNumber());
-            System.out.println("Classement for this stage ");
-            for (Result result : stage.getResults()) {
-                System.out.println(result.getCyclist().getFirstName() + "His classement is " + result.getStageRank());
-            }
-        }
+//        Optional<Stage> stageOptional = stageService.getStageWithResultOrderedByDuration(UUID.fromString("1c18bf4b-0312-4096-96a8-51d7b2a28503"));
+//        if (stageOptional.isPresent())
+//        {
+//            Stage stage = stageOptional.get();
+//            System.out.println(stage.getCompetition().getCompetitionName());
+//            System.out.println(stage.getStageNumber());
+//            System.out.println("Classement for this stage ");
+//            for (Result result : stage.getResults()) {
+//                System.out.println(result.getCyclist().getFirstName() + " His classement is " + result.getStageRank());
+//            }
+//        }
     }
 
 

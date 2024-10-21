@@ -1,30 +1,33 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd
-                           http://www.springframework.org/schema/context
-                           http://www.springframework.org/schema/context/spring-context.xsd
-                           http://www.springframework.org/schema/tx
-                           http://www.springframework.org/schema/tx/spring-tx.xsd">
+                           http://www.springframework.org/schema/mvc
+                           http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <context:component-scan base-package="ma.youcode.cch"/>
+    <mvc:annotation-driven/>
+
+
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
         <property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/cch"/>
         <property name="username" value="postgres"/>
         <property name="password" value="password"/>
+        <property name="minimumIdle" value="5"/>
+        <property name="maximumPoolSize" value="10"/>
+        <property name="connectionTimeout" value="30000"/>
+        <property name="idleTimeout" value="600000"/>
+        <property name="maxLifetime" value="1800000"/>
     </bean>
 
-    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan" value="ma.youcode.cch.entity"/>
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
@@ -40,22 +43,13 @@
     <bean id="competitionDaoImp" class="ma.youcode.cch.daos.implementations.CompetitionDaoImp" />
     <bean id="cyclistDaoImp" class="ma.youcode.cch.daos.implementations.CyclistDaoImp" />
     <bean id="resultDaoImp" class="ma.youcode.cch.daos.implementations.ResultDaoImp" />
-
-    <bean id="cyclistServiceImp" class="ma.youcode.cch.service.impelementations.CyclistServiceImp">
-        <constructor-arg name="cyclistDao" ref="cyclistDaoImp"/>
-    </bean>
-
-    <bean id="teamServiceImp" class="ma.youcode.cch.service.impelementations.TeamServiceImp">
-        <constructor-arg name="teamDao" ref="teamDaoImp"/>
-    </bean>
-
-    <bean id="stageServiceImp" class="ma.youcode.cch.service.impelementations.StageServiceImp">
-        <constructor-arg name="stageDao" ref="stageDaoImp"/>
-    </bean>
+    <bean id="cyclistServiceImp" class="ma.youcode.cch.service.impelementations.CyclistServiceImp"/>
+    <bean id="teamServiceImp" class="ma.youcode.cch.service.impelementations.TeamServiceImp"/>
+    <bean id="stageServiceImp" class="ma.youcode.cch.service.impelementations.StageServiceImp"/>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
-
     <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+
 </beans>

@@ -1,15 +1,10 @@
 package ma.youcode.cch.daos.implementations;
 
+import ma.youcode.cch.daos.interfaces.StageDao;
 import ma.youcode.cch.entity.Stage;
 import ma.youcode.cch.generic.implementations.GenericDaoImp;
-import ma.youcode.cch.daos.interfaces.StageDao;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 
@@ -20,12 +15,19 @@ public class StageDaoImp extends GenericDaoImp<Stage, UUID> implements StageDao 
 
 //    @Override
 //    @Transactional
-//    public List<Stage> findStagesByCompetitionId(UUID competitionId) {
+//    public Optional<Stage> findStageOrderedByDuration(UUID id) {
 //
 //        Session session = sessionFactory.getCurrentSession();
-//        String queryStr = "FROM Stage s WHERE s.competition.competitionId = :competitionId ";
-//        Query<Stage>  query = session.createQuery(queryStr , Stage.class);
-//        query.setParameter("competitionId" , competitionId);
-//        return query.getResultList();
+//        CriteriaBuilder builder = session.getCriteriaBuilder();
+//        CriteriaQuery<Stage> stageQuery = builder.createQuery(Stage.class);
+//
+//        Root<Stage> stageRoot = stageQuery.from(Stage.class);
+//        stageQuery.select(stageRoot).where(builder.equal(stageRoot.get("stageId") , id));
+//
+//        Stage stage = session.createQuery(stageQuery).getSingleResult();
+//        if (stage != null) {
+//
+//        }
+//
 //    }
 }

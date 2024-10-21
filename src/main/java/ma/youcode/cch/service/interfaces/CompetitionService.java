@@ -1,7 +1,6 @@
 package ma.youcode.cch.service.interfaces;
 
 import ma.youcode.cch.entity.Competition;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.util.Optional;

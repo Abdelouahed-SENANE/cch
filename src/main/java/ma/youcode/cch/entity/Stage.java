@@ -3,13 +3,9 @@ package ma.youcode.cch.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ManyToAny;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "stages")
@@ -41,7 +37,7 @@ public class Stage {
     private LocalDate startDate;
 
     @OneToMany(mappedBy = "stage" , fetch = FetchType.EAGER)
-    Set<Result> results = new HashSet<>();
+    private List<Result> results = new ArrayList<>();
 
 
 }

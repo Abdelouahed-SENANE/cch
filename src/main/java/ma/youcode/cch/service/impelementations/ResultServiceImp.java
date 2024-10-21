@@ -2,13 +2,14 @@ package ma.youcode.cch.service.impelementations;
 
 import jakarta.persistence.EntityNotFoundException;
 import ma.youcode.cch.daos.interfaces.*;
-import ma.youcode.cch.entity.*;
+import ma.youcode.cch.entity.Cyclist;
+import ma.youcode.cch.entity.GeneralResult;
+import ma.youcode.cch.entity.Result;
+import ma.youcode.cch.entity.Stage;
 import ma.youcode.cch.entity.embedded.GeneralResultId;
-import ma.youcode.cch.entity.embedded.ResultId;
 import ma.youcode.cch.service.interfaces.ResultService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -20,7 +21,7 @@ public class ResultServiceImp implements ResultService {
     private final GeneralResultDao generalResultDao;
     private final StageDao stageDao;
     private final CyclistDao cyclistDao;
-    private final CompetitionDao competitionDao;
+//    private final CompetitionDao competitionDao;
 
 
     public ResultServiceImp(ResultDao resultDao, CyclistDao cyclistDao, GeneralResultDao generalResultDao, StageDao stageDao, CompetitionDao competitionDao) {
@@ -28,36 +29,23 @@ public class ResultServiceImp implements ResultService {
         this.generalResultDao = generalResultDao;
         this.cyclistDao = cyclistDao;
         this.stageDao = stageDao;
-        this.competitionDao = competitionDao;
+//        this.competitionDao = competitionDao;
     }
 
     @Override
-    public Result createResult(UUID cyclistId, UUID competitionId) {
+    public Result createResult(Result result) {
 
-        Competition competition = competitionDao.findById(competitionId).orElseThrow(() -> new EntityNotFoundException("Competition is not exists "));
-        Cyclist cyclist = cyclistDao.findById(cyclistId).orElseThrow(() -> new EntityNotFoundException("Cyclist  is not exists "));
+        Stage stage = getStage(result.getResultId().getStageId());
+        Cyclist cyclist = getCyclist(result.getResultId().getCyclistId());
 
-        GeneralResultId generalResultId = new GeneralResultId();
-        generalResultId.setCompetitionId(competition.getCompetitionId());
-        generalResultId.setCyclistId(cyclist.getCyclistId());
-        Optional<GeneralResult> generalResult = generalResultDao.findById(generalResultId);
-
-        if (generalResult.isEmpty()) {
-             throw new EntityNotFoundException("The cyclist cannot added on this stage because is not register in this competition " + competition.getCompetitionName());
+        if (!isCyclistSubscribedInCompetition(cyclist , stage)) {
+             throw new EntityNotFoundException("The cyclist cannot added on this stage because is not register in this competition " + stage.getCompetition().getCompetitionName());
         }
 
-        Set<Stage> stages = competition.getStages();
-        for (Stage stage : stages) {
-            Result result = new Result();
-            ResultId resultId = new ResultId();
-            resultId.setCyclistId(cyclist.getCyclistId());
-            resultId.setStageId(stage.getStageId());
-            result.setResultId(resultId);
-            result.setStage(stage);
-            result.setCyclist(cyclist);
-            resultDao.save(result);
-        }
-        return null;
+//        result.setResultId(result.getResultId());
+        result.setStage(stage);
+        result.setCyclist(cyclist);
+        return resultDao.save(result);
     }
 
     @Override
@@ -81,6 +69,26 @@ public class ResultServiceImp implements ResultService {
     public Set<Result> getAllResults() {
         return resultDao.findAll();
     }
+
+    private boolean isCyclistSubscribedInCompetition(Cyclist cyclist , Stage stage){
+
+        GeneralResultId generalResultId = new GeneralResultId();
+        generalResultId.setCompetitionId(stage.getCompetition().getCompetitionId());
+        generalResultId.setCyclistId(cyclist.getCyclistId());
+        Optional<GeneralResult> generalResult = generalResultDao.findById(generalResultId);
+
+        return generalResult.isPresent();
+    }
+
+    private Stage getStage(UUID stageId) {
+        return stageDao.findById(stageId).orElseThrow(() -> new EntityNotFoundException("Stage is not found"));
+    }
+    private Cyclist getCyclist(UUID cyclistId) {
+        return cyclistDao.findById(cyclistId).orElseThrow(() -> new EntityNotFoundException("Cyclist is not found"));
+    }
+
+
+
 
 
 }

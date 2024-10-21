@@ -1,30 +1,30 @@
 package ma.youcode.cch.service.impelementations;
 
-import ma.youcode.cch.daos.interfaces.CompetitionDao;
 import ma.youcode.cch.daos.interfaces.StageDao;
 import ma.youcode.cch.entity.Competition;
+import ma.youcode.cch.entity.Result;
 import ma.youcode.cch.entity.Stage;
 import ma.youcode.cch.service.interfaces.CompetitionService;
 import ma.youcode.cch.service.interfaces.StageService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class StageServiceImp implements StageService {
 
     private final StageDao stageDao;
     private final CompetitionService competitionService;
-    public StageServiceImp(StageDao stageDao , CompetitionService competitionService ){this.stageDao = stageDao; this.competitionService = competitionService;}
+
+    public StageServiceImp(StageDao stageDao, CompetitionService competitionService) {
+        this.stageDao = stageDao;
+        this.competitionService = competitionService;
+    }
 
     @Override
     public Stage createStage(Stage stage) {
 
-        Optional<Competition> optionalCompetition = competitionService.getCompetition(UUID.fromString("a6d2a5b9-f296-4f0c-b856-01a93eb4f81b"));
+        Optional<Competition> optionalCompetition = competitionService.getCompetition(stage.getCompetition().getCompetitionId());
 
         if (optionalCompetition.isPresent()) {
             Competition competition = optionalCompetition.get();
@@ -33,13 +33,15 @@ public class StageServiceImp implements StageService {
                         .mapToInt(Stage::getStageNumber)
                         .max()
                         .orElse(0) + 1;
+
                 stage.setStageNumber(nextStageNumber);
                 stage.setCompetition(competition);
                 return stageDao.save(stage);
+
             } else {
                 System.out.println("cannot add new stage because you have reached max stage " + competition.getNumberOfStage());
             }
-        }else {
+        } else {
             System.out.println("Competition Not Found");
         }
 
@@ -72,8 +74,22 @@ public class StageServiceImp implements StageService {
         return stageDao.findById(id);
     }
 
-//    @Override
-//    public List<Stage> getStagesByCompetitionId(UUID id) {
-//        return stageDao.findStagesByCompetitionId(id);
-//    }
+    @Override
+    public Optional<Stage> getStageWithResultOrderedByDuration(UUID id) {
+        Optional<Stage> stage = stageDao.findById(id);
+        if (stage.isPresent()) {
+            Stage getStage = stage.get();
+            List<Result> orderedResult = getStage.getResults().stream()
+                    .sorted(Comparator.comparing(Result::getStageDuration))
+                    .toList();
+
+            getStage.setResults(orderedResult);
+            return Optional.of(getStage);
+        }
+
+        return Optional.empty();
+    }
+
+
+
 }

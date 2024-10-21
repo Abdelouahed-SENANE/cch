@@ -2,7 +2,6 @@ package ma.youcode.cch.service.interfaces;
 
 import ma.youcode.cch.entity.GeneralResult;
 
-import java.time.LocalDate;
 import java.util.Set;
 
 public interface GeneralResultService {

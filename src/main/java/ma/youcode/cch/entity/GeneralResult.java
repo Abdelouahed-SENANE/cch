@@ -6,7 +6,6 @@ import lombok.Setter;
 import ma.youcode.cch.entity.embedded.GeneralResultId;
 
 import java.time.Duration;
-import java.util.Objects;
 
 @Entity
 @Table(name = "general_results")
@@ -16,7 +15,6 @@ public class GeneralResult {
 
     @EmbeddedId
     private GeneralResultId generalResultId;
-
 
     @ManyToOne
     @MapsId("cyclistId")
@@ -28,22 +26,11 @@ public class GeneralResult {
     @JoinColumn(name = "competition_id")
     private Competition competition;
 
-    @Column(name = "general_rank")
-    private int generalRank;
+    @Column(name = "overall_rank")
+    private int overallRank;
 
+    @Column(name = "overall_duration")
+    private Duration overallDuration;
 
-    private Duration duration;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        GeneralResult that = (GeneralResult) o;
-        return Objects.equals(generalResultId, that.generalResultId) && Objects.equals(cyclist, that.cyclist) && Objects.equals(competition, that.competition);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(generalResultId, cyclist, competition);
-    }
+    public GeneralResult(){}
 }
