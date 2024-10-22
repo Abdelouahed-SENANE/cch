@@ -1,20 +1,16 @@
 package ma.youcode.cch;
 
 
-import ma.youcode.cch.controller.CyclistController;
-import ma.youcode.cch.service.interfaces.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
-
-import java.util.*;
 
 @Component
 public class App {
 
     public static void main(String[] args) {
 
-        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
 //        TeamService teamService = context.getBean(TeamService.class);
 //        CyclistService cyclistService = context.getBean(CyclistService.class);
 //        CompetitionService competitionService = context.getBean(CompetitionService.class);
@@ -30,7 +26,7 @@ public class App {
 //        ResultId resultId = new ResultId();
 //        resultId.setCyclistId(cyclistId);
 //        resultId.setStageId(stageId);
-//        Result result = new Result();
+//        StageResult result = new StageResult();
 //        result.setResultId(resultId);
 //        try {
 //            resultService.createResult(result);
@@ -41,7 +37,7 @@ public class App {
 //        ResultId resultId = new ResultId();
 //        resultId.setStageId(UUID.fromString("1c18bf4b-0312-4096-96a8-51d7b2a28503"));
 //        resultId.setCyclistId(UUID.fromString("da346d6b-c80e-4701-88ce-7943bbbe284a"));
-//        Result result = new Result();
+//        StageResult result = new StageResult();
 //        result.setResultId(resultId);
 //        result.setDuration(Duration.ofSeconds(100));
 //        resultService.updateResult(result);
@@ -125,7 +121,7 @@ public class App {
 //            System.out.println(stage.getCompetition().getCompetitionName());
 //            System.out.println(stage.getStageNumber());
 //            System.out.println("Classement for this stage ");
-//            for (Result result : stage.getResults()) {
+//            for (StageResult result : stage.getStageResults()) {
 //                System.out.println(result.getCyclist().getFirstName() + " His classement is " + result.getStageRank());
 //            }
 //        }

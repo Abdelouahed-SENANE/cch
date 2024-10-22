@@ -37,7 +37,7 @@ public class Stage {
     private LocalDate startDate;
 
     @OneToMany(mappedBy = "stage" , fetch = FetchType.EAGER)
-    private List<Result> results = new ArrayList<>();
+    private List<StageResult> stageResults = new ArrayList<>();
 
 
 }

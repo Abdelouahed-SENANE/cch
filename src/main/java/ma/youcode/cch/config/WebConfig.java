@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-@ImportResource("classpath:applicationContext.xml")
+@ImportResource("classpath:application-context.xml")
 @ComponentScan(basePackages = "ma.youcode.cch")
 public class WebConfig implements WebMvcConfigurer {
 

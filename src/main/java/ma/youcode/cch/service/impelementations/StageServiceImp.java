@@ -2,7 +2,7 @@ package ma.youcode.cch.service.impelementations;
 
 import ma.youcode.cch.daos.interfaces.StageDao;
 import ma.youcode.cch.entity.Competition;
-import ma.youcode.cch.entity.Result;
+import ma.youcode.cch.entity.StageResult;
 import ma.youcode.cch.entity.Stage;
 import ma.youcode.cch.service.interfaces.CompetitionService;
 import ma.youcode.cch.service.interfaces.StageService;
@@ -79,11 +79,11 @@ public class StageServiceImp implements StageService {
         Optional<Stage> stage = stageDao.findById(id);
         if (stage.isPresent()) {
             Stage getStage = stage.get();
-            List<Result> orderedResult = getStage.getResults().stream()
-                    .sorted(Comparator.comparing(Result::getStageDuration))
+            List<StageResult> orderedStageResult = getStage.getStageResults().stream()
+                    .sorted(Comparator.comparing(StageResult::getStageDuration))
                     .toList();
 
-            getStage.setResults(orderedResult);
+            getStage.setStageResults(orderedStageResult);
             return Optional.of(getStage);
         }
 

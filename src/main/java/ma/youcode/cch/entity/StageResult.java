@@ -10,8 +10,8 @@ import java.time.Duration;
 @Entity
 @Getter
 @Setter
-@Table(name = "results")
-public class Result {
+@Table(name = "stage_results")
+public class StageResult {
 
     @EmbeddedId
     private ResultId resultId;

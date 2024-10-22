@@ -4,7 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import ma.youcode.cch.daos.interfaces.*;
 import ma.youcode.cch.entity.Cyclist;
 import ma.youcode.cch.entity.GeneralResult;
-import ma.youcode.cch.entity.Result;
+import ma.youcode.cch.entity.StageResult;
 import ma.youcode.cch.entity.Stage;
 import ma.youcode.cch.entity.embedded.GeneralResultId;
 import ma.youcode.cch.service.interfaces.ResultService;
@@ -33,40 +33,40 @@ public class ResultServiceImp implements ResultService {
     }
 
     @Override
-    public Result createResult(Result result) {
+    public StageResult createResult(StageResult stageResult) {
 
-        Stage stage = getStage(result.getResultId().getStageId());
-        Cyclist cyclist = getCyclist(result.getResultId().getCyclistId());
+        Stage stage = getStage(stageResult.getResultId().getStageId());
+        Cyclist cyclist = getCyclist(stageResult.getResultId().getCyclistId());
 
         if (!isCyclistSubscribedInCompetition(cyclist , stage)) {
              throw new EntityNotFoundException("The cyclist cannot added on this stage because is not register in this competition " + stage.getCompetition().getCompetitionName());
         }
 
-//        result.setResultId(result.getResultId());
-        result.setStage(stage);
-        result.setCyclist(cyclist);
-        return resultDao.save(result);
+//        stageResult.setResultId(stageResult.getResultId());
+        stageResult.setStage(stage);
+        stageResult.setCyclist(cyclist);
+        return resultDao.save(stageResult);
     }
 
     @Override
-    public Result updateResult(Result result) {
+    public StageResult updateResult(StageResult stageResult) {
 
-        Optional<Result> optionalResult = resultDao.findById(result.getResultId());
+        Optional<StageResult> optionalResult = resultDao.findById(stageResult.getResultId());
 
         if (optionalResult.isPresent()) {
-            return resultDao.update(result);
+            return resultDao.update(stageResult);
         }
 
         return null;
     }
 
     @Override
-    public Result deleteResult(Result result) {
-        return resultDao.delete(result);
+    public StageResult deleteResult(StageResult stageResult) {
+        return resultDao.delete(stageResult);
     }
 
     @Override
-    public Set<Result> getAllResults() {
+    public Set<StageResult> getAllResults() {
         return resultDao.findAll();
     }
 

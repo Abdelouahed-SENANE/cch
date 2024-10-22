@@ -37,7 +37,7 @@ public class Cyclist {
     private Set<GeneralResult> generalResults;
 
     @OneToMany(mappedBy = "cyclist" , fetch = FetchType.EAGER)
-    private List<Result> results = new ArrayList<>();
+    private List<StageResult> stageResults = new ArrayList<>();
 
     public Cyclist(){}
 
