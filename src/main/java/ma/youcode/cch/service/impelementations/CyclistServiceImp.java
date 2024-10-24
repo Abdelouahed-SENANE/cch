@@ -1,6 +1,7 @@
 package ma.youcode.cch.service.impelementations;
 
 import ma.youcode.cch.daos.interfaces.CyclistDao;
+import ma.youcode.cch.dtos.cyclist.CreateCyclistDTO;
 import ma.youcode.cch.dtos.cyclist.CyclistResponseDTO;
 import ma.youcode.cch.entity.Cyclist;
 import ma.youcode.cch.mapper.CyclistMapper;
@@ -28,8 +29,13 @@ public class CyclistServiceImp implements CyclistService {
 //    }
 
     @Override
-    public Cyclist createCyclist(Cyclist cyclist) {
-        return cyclistDao.save(cyclist);
+    public CyclistResponseDTO createCyclist(CreateCyclistDTO createCyclistDTO) {
+
+        Cyclist cyclist = cyclistMapper.toCyclistEntity(createCyclistDTO);
+        System.out.println("Team Object" + cyclist.getTeam().getTeamId());
+        cyclist = cyclistDao.save(cyclist);
+        return cyclistMapper.toResponseDTO(cyclist);
+
     }
 
     @Override

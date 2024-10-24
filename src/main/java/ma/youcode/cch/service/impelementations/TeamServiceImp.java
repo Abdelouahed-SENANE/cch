@@ -36,7 +36,7 @@ public class TeamServiceImp implements TeamService {
     @Override
     public TeamResponseDTO updateTeam(CreateTeamDTO createTeamDTO) {
 
-        if (isTeamExist(createTeamDTO.getTeamId())) {
+        if (!isTeamExist(createTeamDTO.getTeamId())) {
             throw new EntityNotFoundException("Team Not Found");
         }
 
@@ -76,7 +76,7 @@ public class TeamServiceImp implements TeamService {
         return teamDao.existsById(teamId);
     }
 
-    private Team getTeamById(UUID teamId) {
+    public Team getTeamById(UUID teamId) {
         Optional<Team> optionalTeam = teamDao.findById(teamId);
         return optionalTeam.orElse(null);
     }

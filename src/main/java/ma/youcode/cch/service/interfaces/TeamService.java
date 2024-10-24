@@ -14,4 +14,5 @@ public interface TeamService {
     TeamResponseDTO deleteTeam(UUID teamId);
     Set<Team> getAllTeams();
     TeamResponseDTO getTeam(UUID id);
+    Team getTeamById(UUID teamId);
 }
