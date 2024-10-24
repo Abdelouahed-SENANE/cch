@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Repository
+@Transactional
 public abstract class GenericDaoImp<T , ID> implements GenericDao<T , ID> {
 
     @Autowired
@@ -26,7 +27,6 @@ public abstract class GenericDaoImp<T , ID> implements GenericDao<T , ID> {
     }
 
     @Override
-    @Transactional
     public T save(T entity) {
         if (entity != null) {
             Session session = sessionFactory.getCurrentSession();
@@ -36,7 +36,6 @@ public abstract class GenericDaoImp<T , ID> implements GenericDao<T , ID> {
     }
 
     @Override
-    @Transactional
     public T update(T entity) {
         if (entity != null) {
             Session session = sessionFactory.getCurrentSession();
@@ -46,7 +45,6 @@ public abstract class GenericDaoImp<T , ID> implements GenericDao<T , ID> {
     }
 
     @Override
-    @Transactional
     public T delete(T entity) {
         if (entity != null) {
             Session session = sessionFactory.getCurrentSession();
@@ -60,7 +58,6 @@ public abstract class GenericDaoImp<T , ID> implements GenericDao<T , ID> {
     }
 
     @Override
-    @Transactional
     public Optional<T> findById(ID id) {
         if(id != null) {
             Session session = sessionFactory.getCurrentSession();
@@ -86,5 +83,16 @@ public abstract class GenericDaoImp<T , ID> implements GenericDao<T , ID> {
             session.close();
         }
         return results;
+    }
+
+
+    @Override
+    public boolean existsById(ID id) {
+        if (id == null) {
+            return false;
+        }
+        Session session = sessionFactory.getCurrentSession();
+        T entity = (T) session.get(entityClass , id);
+        return  entity != null;
     }
 }

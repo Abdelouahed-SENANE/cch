@@ -1,5 +1,6 @@
 package ma.youcode.cch.controller;
 
+import ma.youcode.cch.dtos.cyclist.CyclistResponseDTO;
 import ma.youcode.cch.entity.Cyclist;
 import ma.youcode.cch.entity.Team;
 import ma.youcode.cch.service.interfaces.CyclistService;
@@ -26,11 +27,11 @@ public class CyclistController {
     }
 
     @GetMapping
-    public ResponseEntity<Set<Cyclist>> test(){
+    public ResponseEntity<List<CyclistResponseDTO>> cyclists(){
 
-        Set<Cyclist> getCyclists = cyclistService.getAllCyclists();
+        List<CyclistResponseDTO> getCyclistsDTOs = cyclistService.getAllCyclists();
+        return ResponseEntity.ok(getCyclistsDTOs);
 
-    return ResponseEntity.ok(getCyclists);
     }
 
 

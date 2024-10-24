@@ -2,6 +2,7 @@ package ma.youcode.cch.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,8 +10,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "cyclists")
-@Setter
-@Getter
+@Data
 public class Cyclist {
 
     @Id

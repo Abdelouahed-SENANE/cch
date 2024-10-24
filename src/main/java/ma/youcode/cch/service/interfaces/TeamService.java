@@ -1,5 +1,7 @@
 package ma.youcode.cch.service.interfaces;
 
+import ma.youcode.cch.dtos.team.CreateTeamDTO;
+import ma.youcode.cch.dtos.team.TeamResponseDTO;
 import ma.youcode.cch.entity.Team;
 
 import java.util.Set;
@@ -7,9 +9,9 @@ import java.util.UUID;
 
 public interface TeamService {
 
-    Team createTeam(Team team);
-    Team updateTeam(Team team);
-    Team deleteTeam(Team team);
+    TeamResponseDTO createTeam(CreateTeamDTO createTeamDTO);
+    TeamResponseDTO updateTeam(CreateTeamDTO createTeamDTO);
+    TeamResponseDTO deleteTeam(UUID teamId);
     Set<Team> getAllTeams();
-    Team getTeam(UUID id);
+    TeamResponseDTO getTeam(UUID id);
 }

@@ -9,6 +9,7 @@ import ma.youcode.cch.service.interfaces.StageService;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class StageServiceImp implements StageService {
@@ -81,7 +82,7 @@ public class StageServiceImp implements StageService {
             Stage getStage = stage.get();
             List<StageResult> orderedStageResult = getStage.getStageResults().stream()
                     .sorted(Comparator.comparing(StageResult::getStageDuration))
-                    .toList();
+                    .collect(Collectors.toList());
 
             getStage.setStageResults(orderedStageResult);
             return Optional.of(getStage);

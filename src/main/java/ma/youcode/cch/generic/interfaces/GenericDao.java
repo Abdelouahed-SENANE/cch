@@ -12,6 +12,7 @@ public interface GenericDao<T, ID> {
     T delete(T entity);
 
     Optional<T> findById(ID id);
+    boolean existsById(ID id);
 
     Set<T> findAll();
 
