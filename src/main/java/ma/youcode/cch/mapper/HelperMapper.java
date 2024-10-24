@@ -1,18 +1,17 @@
-package ma.youcode.cch.mapper.helpers;
+package ma.youcode.cch.mapper;
 
 import ma.youcode.cch.entity.Team;
 import ma.youcode.cch.service.interfaces.TeamService;
 import org.mapstruct.Named;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Component
-public class MapperHelper {
+public  class HelperMapper {
 
     private final TeamService teamService;
-    public MapperHelper(TeamService teamService) {
+    public HelperMapper(TeamService teamService) {
         this.teamService = teamService;
     }
 

@@ -25,27 +25,27 @@ public class StageServiceImp implements StageService {
     @Override
     public Stage createStage(Stage stage) {
 
-        Optional<Competition> optionalCompetition = competitionService.getCompetition(stage.getCompetition().getCompetitionId());
-
-        if (optionalCompetition.isPresent()) {
-            Competition competition = optionalCompetition.get();
-            if (competition.getStages().size() < competition.getNumberOfStage()) {
-                int nextStageNumber = competition.getStages().stream()
-                        .mapToInt(Stage::getStageNumber)
-                        .max()
-                        .orElse(0) + 1;
-
-                stage.setStageNumber(nextStageNumber);
-                stage.setCompetition(competition);
-                return stageDao.save(stage);
-
-            } else {
-                System.out.println("cannot add new stage because you have reached max stage " + competition.getNumberOfStage());
-            }
-        } else {
-            System.out.println("Competition Not Found");
-        }
-
+//        Optional<Competition> optionalCompetition = competitionService.getCompetition(stage.getCompetition().getCompetitionId());
+//
+//        if (optionalCompetition.isPresent()) {
+//            Competition competition = optionalCompetition.get();
+//            if (competition.getStages().size() < competition.getNumberOfStage()) {
+//                int nextStageNumber = competition.getStages().stream()
+//                        .mapToInt(Stage::getStageNumber)
+//                        .max()
+//                        .orElse(0) + 1;
+//
+//                stage.setStageNumber(nextStageNumber);
+//                stage.setCompetition(competition);
+//                return stageDao.save(stage);
+//
+//            } else {
+//                System.out.println("cannot add new stage because you have reached max stage " + competition.getNumberOfStage());
+//            }
+//        } else {
+//            System.out.println("Competition Not Found");
+//        }
+//
         return null;
     }
 

@@ -1,17 +1,20 @@
 package ma.youcode.cch.service.interfaces;
 
+import ma.youcode.cch.dtos.competition.CompetitionResponseDTO;
+import ma.youcode.cch.dtos.competition.CreateCompetitionDTO;
 import ma.youcode.cch.entity.Competition;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
 public interface CompetitionService {
-    Competition createCompetition(Competition competition);
-    Competition updateCompetition(Competition competition);
-    Competition deleteCompetition(Competition competition);
-    Set<Competition> getAllCompetitions();
-    Set<Competition> getFilteredCompetitions(String place , LocalDate startDate);
-    Optional<Competition> getCompetition(UUID id);
+    CompetitionResponseDTO createCompetition(CreateCompetitionDTO competitionDTO);
+    CompetitionResponseDTO updateCompetition(UUID competitionId , CreateCompetitionDTO competitionDTO);
+    CompetitionResponseDTO deleteCompetition(UUID competitionId);
+    List<CompetitionResponseDTO> getAllCompetitions();
+    List<CompetitionResponseDTO>getFilteredCompetitions(String place , LocalDate startDate);
+    CompetitionResponseDTO getCompetition(UUID competitionId);
 }

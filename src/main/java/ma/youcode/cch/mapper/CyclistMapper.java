@@ -5,12 +5,10 @@ import ma.youcode.cch.dtos.cyclist.CreateCyclistDTO;
 import ma.youcode.cch.dtos.cyclist.CyclistResponseDTO;
 import ma.youcode.cch.dtos.cyclist.EmbeddedCyclistDTO;
 import ma.youcode.cch.entity.Cyclist;
-import ma.youcode.cch.mapper.helpers.MapperHelper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring" , uses = MapperHelper.class)
+@Mapper(componentModel = "spring" , uses = HelperMapper.class)
 public interface CyclistMapper {
 
 //    CyclistMapper INSTANCE = Mappers.getMapper(CyclistMapper.class);

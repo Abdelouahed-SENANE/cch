@@ -59,7 +59,7 @@ public class CyclistController {
         return ResponseEntity.ok(cyclistService.deleteCyclist(cyclistId));
     }
 
-    @GetMapping("/sorted")
+    @GetMapping("/sort")
     public ResponseEntity<?> sortedCyclists(@RequestParam String criteria) {
         return ResponseEntity.ok(cyclistService.getSortedCyclists(criteria));
     }
