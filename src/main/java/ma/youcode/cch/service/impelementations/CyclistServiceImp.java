@@ -10,6 +10,7 @@ import ma.youcode.cch.service.interfaces.CyclistService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -25,10 +26,6 @@ public class CyclistServiceImp implements CyclistService {
         this.cyclistMapper = cyclistMapper;
     }
 
-//    @Override
-//    public String test() {
-//        return "The  dependency Injection is worked fine";
-//    }
 
     @Override
     public CyclistResponseDTO createCyclist(CreateCyclistDTO createCyclistDTO) {
@@ -42,23 +39,22 @@ public class CyclistServiceImp implements CyclistService {
     @Override
     public CyclistResponseDTO updateCyclist( UUID cyclistId , CreateCyclistDTO createCyclistDTO) {
 
-        if (!isCyclistExist(cyclistId)) {
+        if (!getCyclistById(cyclistId).isPresent()) {
             throw new EntityNotFoundException("Cyclist Not Found");
         }
-        System.out.println("hello " + createCyclistDTO.getTeamId());
 
         Cyclist updated = cyclistMapper.toCyclistEntity(createCyclistDTO);
         updated.setCyclistId(cyclistId);
-        System.out.println("hello " + updated.getTeam().getTeamId());
+
         return cyclistMapper.toResponseDTO(cyclistDao.update(updated));
     }
 
     @Override
     public CyclistResponseDTO deleteCyclist(UUID cyclistId) {
-        if (!isCyclistExist(cyclistId)) {
+        if (!getCyclistById(cyclistId).isPresent()) {
             throw new EntityNotFoundException("Cyclist Not Found");
         }
-        Cyclist deleted = this.getCyclistById(cyclistId);
+        Cyclist deleted = this.getCyclistById(cyclistId).orElse(null);
         return cyclistMapper.toResponseDTO(cyclistDao.delete(deleted));
     }
 
@@ -70,23 +66,24 @@ public class CyclistServiceImp implements CyclistService {
     private List<CyclistResponseDTO> convertToListCyclistDTO(Set<Cyclist> cyclists) {
         return cyclists.stream().map(cyclistMapper::toResponseDTO).collect(Collectors.toList());
     }
-
-    private boolean isCyclistExist(UUID cyclistId) {
-        return cyclistDao.existsById(cyclistId);
+    private List<CyclistResponseDTO> convertToListCyclistDTO(List<Cyclist> cyclists) {
+        return cyclists.stream().map(cyclistMapper::toResponseDTO).collect(Collectors.toList());
     }
 
+
     @Override
-    public Cyclist getCyclistById(UUID cyclistId) {
-        return cyclistDao.findById(cyclistId).orElse(null);
+    public Optional<Cyclist> getCyclistById(UUID cyclistId) {
+        return cyclistDao.findById(cyclistId);
     }
 
     @Override
     public CyclistResponseDTO getCyclist(UUID cyclistId) {
-        return cyclistMapper.toResponseDTO(getCyclistById(cyclistId));
+        return cyclistMapper.toResponseDTO(getCyclistById(cyclistId).orElse(null));
     }
 
     @Override
-    public List<Cyclist> getSortedCyclists(String criteria) {
-        return cyclistDao.findSortedCyclists(criteria);
+    public List<CyclistResponseDTO> getSortedCyclists(String criteria) {
+
+        return this.convertToListCyclistDTO(cyclistDao.findSortedCyclists(criteria));
     }
 }
