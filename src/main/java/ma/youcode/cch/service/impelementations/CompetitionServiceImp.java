@@ -75,7 +75,7 @@ public class CompetitionServiceImp implements CompetitionService {
         return competitionMapper.toResponseDTO(getCompetition);
     }
 
-    private Optional<Competition> getCompetitionById(UUID competitionId) {
+    public Optional<Competition> getCompetitionById(UUID competitionId) {
         return competitionDao.findById(competitionId);
     }
 

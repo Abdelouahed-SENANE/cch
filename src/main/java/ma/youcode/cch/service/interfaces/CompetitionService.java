@@ -17,4 +17,6 @@ public interface CompetitionService {
     List<CompetitionResponseDTO> getAllCompetitions();
     List<CompetitionResponseDTO>getFilteredCompetitions(String place , LocalDate startDate);
     CompetitionResponseDTO getCompetition(UUID competitionId);
+    Optional<Competition> getCompetitionById(UUID competitionId);
+
 }

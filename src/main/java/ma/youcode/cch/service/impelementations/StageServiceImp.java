@@ -1,9 +1,14 @@
 package ma.youcode.cch.service.impelementations;
 
+import jakarta.persistence.EntityNotFoundException;
 import ma.youcode.cch.daos.interfaces.StageDao;
+import ma.youcode.cch.dtos.competition.CompetitionResponseDTO;
+import ma.youcode.cch.dtos.stage.CreateStageDTO;
+import ma.youcode.cch.dtos.stage.StageResponseDTO;
 import ma.youcode.cch.entity.Competition;
 import ma.youcode.cch.entity.StageResult;
 import ma.youcode.cch.entity.Stage;
+import ma.youcode.cch.mapper.StageMapper;
 import ma.youcode.cch.service.interfaces.CompetitionService;
 import ma.youcode.cch.service.interfaces.StageService;
 import org.springframework.stereotype.Service;
@@ -16,62 +21,96 @@ public class StageServiceImp implements StageService {
 
     private final StageDao stageDao;
     private final CompetitionService competitionService;
+    private final StageMapper stageMapper;
 
-    public StageServiceImp(StageDao stageDao, CompetitionService competitionService) {
+    public StageServiceImp(StageDao stageDao, CompetitionService competitionService, StageMapper stageMapper) {
         this.stageDao = stageDao;
         this.competitionService = competitionService;
+        this.stageMapper = stageMapper;
+
     }
 
     @Override
-    public Stage createStage(Stage stage) {
+    public StageResponseDTO createStage(CreateStageDTO stageDTO) {
 
-//        Optional<Competition> optionalCompetition = competitionService.getCompetition(stage.getCompetition().getCompetitionId());
-//
-//        if (optionalCompetition.isPresent()) {
-//            Competition competition = optionalCompetition.get();
-//            if (competition.getStages().size() < competition.getNumberOfStage()) {
-//                int nextStageNumber = competition.getStages().stream()
-//                        .mapToInt(Stage::getStageNumber)
-//                        .max()
-//                        .orElse(0) + 1;
-//
-//                stage.setStageNumber(nextStageNumber);
-//                stage.setCompetition(competition);
-//                return stageDao.save(stage);
-//
-//            } else {
-//                System.out.println("cannot add new stage because you have reached max stage " + competition.getNumberOfStage());
-//            }
-//        } else {
-//            System.out.println("Competition Not Found");
-//        }
-//
-        return null;
-    }
+        Optional<Competition> optionalCompetition = competitionService.getCompetitionById(stageDTO.getCompetitionId());
 
-    @Override
-    public Stage updateStage(Stage stage) {
-        Optional<Stage> stageOptional = stageDao.findById(stage.getStageId());
-        if (stageOptional.isPresent()) {
-            Stage getStage = stageOptional.get();
-            stage.setStageNumber(getStage.getStageNumber());
-            return stageDao.update(stage);
+        if (!optionalCompetition.isPresent()) {
+            throw new EntityNotFoundException("Competition Not Found");
         }
-        return null;
+
+        Competition competition = optionalCompetition.get();
+
+        if (competition.getStages().size() >= competition.getNumberOfStage()) {
+            throw new IllegalArgumentException("Cannot add new stage because you have reached the maximum number of stages  " + competition.getNumberOfStage());
+        }
+        Stage stage = stageMapper.toStageEntity(stageDTO);
+        stage.setStageNumber(calculateNextStageNumber(competition.getStages()));
+
+        return stageMapper.toResponseDTO(stageDao.save(stage));
     }
 
     @Override
-    public Stage deleteStage(Stage Stage) {
-        return stageDao.delete(Stage);
+    public StageResponseDTO updateStage(UUID stageId ,CreateStageDTO stageDTO) {
+        Optional<Stage> stageOptional = stageDao.findById(stageId);
+
+        if (!stageOptional.isPresent()) {
+            throw new EntityNotFoundException("Stage Not Found");
+        }
+
+        Stage updated = stageMapper.toStageEntity(stageDTO);
+        updated.setStageId(stageId);
+        updated.setStageNumber(stageOptional.get().getStageNumber());
+
+        return stageMapper.toResponseDTO(stageDao.update(updated));
     }
 
     @Override
-    public Set<Stage> getAllStages() {
-        return stageDao.findAll();
+    public StageResponseDTO deleteStage(UUID stageId) {
+        Optional<Stage> stageOptional = stageDao.findById(stageId);
+
+        if (!stageOptional.isPresent()) {
+            throw new EntityNotFoundException("Stage Not Found");
+        }
+
+        Stage deleted = stageOptional.orElse(null);
+
+//
+        return stageMapper.toResponseDTO(stageDao.delete(deleted));
+
     }
 
     @Override
-    public Optional<Stage> getStage(UUID id) {
+    public List<StageResponseDTO> getAllStages() {
+        return this.convertToListStageResponseDTO(stageDao.findAll());
+    }
+
+    private int calculateNextStageNumber(Set<Stage> stages) {
+        return  stages.stream()
+                .mapToInt(Stage::getStageNumber)
+                .max()
+                .orElse(0) + 1;
+    }
+
+
+    private List<StageResponseDTO> convertToListStageResponseDTO(Set<Stage> stages) {
+        return stages.stream()
+                .map(stageMapper::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public StageResponseDTO getStage(UUID id) {
+        Optional<Stage> stageOptional = stageDao.findById(id);
+
+        if (!stageOptional.isPresent()) {
+            throw new EntityNotFoundException("Stage Not Found");
+        }
+
+        return stageMapper.toResponseDTO(stageOptional.get());
+    }
+
+    public Optional<Stage> getStageById(UUID id) {
         return stageDao.findById(id);
     }
 
@@ -90,7 +129,6 @@ public class StageServiceImp implements StageService {
 
         return Optional.empty();
     }
-
 
 
 }
