@@ -39,7 +39,7 @@ public class CompetitionServiceImp implements CompetitionService {
     @Override
     public CompetitionResponseDTO updateCompetition( UUID competitionId,CreateCompetitionDTO competitionDTO) {
 
-        if (getCompetitionById(competitionId).isPresent()) {
+        if (!getCompetitionById(competitionId).isPresent()) {
             throw new EntityNotFoundException("Competition Not Found");
         }
         Competition updated = competitionMapper.toCompetitionEntity(competitionDTO);
@@ -51,7 +51,7 @@ public class CompetitionServiceImp implements CompetitionService {
     @Override
     public CompetitionResponseDTO deleteCompetition(UUID competitionId) {
 
-        if (getCompetitionById(competitionId).isPresent()) {
+        if (!getCompetitionById(competitionId).isPresent()) {
             throw new EntityNotFoundException("Competition Not Found");
         }
         Competition deleted = getCompetitionById(competitionId).orElse(null);

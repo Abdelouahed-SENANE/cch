@@ -55,7 +55,7 @@ public class CompetitionController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<?> sortedCompetitions(@RequestParam String place , @RequestParam LocalDate startDate) {
+    public ResponseEntity<?> sortedCompetitions(@RequestParam(required = false) String place , @RequestParam(required = false) LocalDate startDate) {
         return ResponseEntity.ok(competitionService.getFilteredCompetitions(place , startDate));
     }
 
