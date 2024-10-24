@@ -17,16 +17,12 @@ public class Cyclist {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID cyclistId;
 
-    @NotBlank
     private String firstName;
 
-    @NotBlank
     private String lastName;
 
-    @NotBlank
     private String nationality;
 
-    @NotBlank
     private String age;
 
     @ManyToOne

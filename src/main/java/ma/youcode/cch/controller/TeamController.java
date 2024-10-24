@@ -27,8 +27,8 @@ public class TeamController {
 
     @PutMapping("/{teamId}")
     public ResponseEntity<TeamResponseDTO> updateTeam(@PathVariable UUID teamId ,  @RequestBody CreateTeamDTO createTeamDTO) {
-        createTeamDTO.setTeamId(teamId);
-        return ResponseEntity.ok(teamService.updateTeam(createTeamDTO));
+
+        return ResponseEntity.ok(teamService.updateTeam(createTeamDTO , teamId));
     }
 
     @DeleteMapping("/{teamId}")

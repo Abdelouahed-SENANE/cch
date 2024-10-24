@@ -13,7 +13,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring" , uses = MapperHelper.class)
 public interface CyclistMapper {
 
-    CyclistMapper INSTANCE = Mappers.getMapper(CyclistMapper.class);
+//    CyclistMapper INSTANCE = Mappers.getMapper(CyclistMapper.class);
 
     CyclistResponseDTO toResponseDTO(Cyclist entity);
     EmbeddedCyclistDTO toEmbeddedDTO(Cyclist entity);

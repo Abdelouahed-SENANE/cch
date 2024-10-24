@@ -29,18 +29,19 @@ public class TeamServiceImp implements TeamService {
     @Override
     public TeamResponseDTO createTeam(CreateTeamDTO createTeamDTO) {
         Team saved = teamMapper.toTeamEntity(createTeamDTO);
-         saved = teamDao.save(saved);
+        saved = teamDao.save(saved);
         return teamMapper.toResponseDTO(saved);
     }
 
     @Override
-    public TeamResponseDTO updateTeam(CreateTeamDTO createTeamDTO) {
+    public TeamResponseDTO updateTeam(CreateTeamDTO createTeamDTO , UUID teamId) {
 
-        if (!isTeamExist(createTeamDTO.getTeamId())) {
+        if (!isTeamExist(teamId)) {
             throw new EntityNotFoundException("Team Not Found");
         }
 
         Team updated = teamMapper.toTeamEntity(createTeamDTO);
+        updated.setTeamId(teamId);
         updated = teamDao.update(updated);
 
         return teamMapper.toResponseDTO(updated);

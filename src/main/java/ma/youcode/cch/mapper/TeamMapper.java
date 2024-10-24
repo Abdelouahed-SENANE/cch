@@ -15,12 +15,12 @@ import java.util.UUID;
 
 @Mapper(componentModel = "spring")
 public interface TeamMapper {
-    TeamMapper INSTANCE = Mappers.getMapper(TeamMapper.class);
+
+//    TeamMapper INSTANCE = Mappers.getMapper(TeamMapper.class);
 
     TeamResponseDTO toResponseDTO(Team team);
     EmbeddedTeamDTO toEmbeddedDTO(Team team);
     CreateTeamDTO toCreateDTO(Team team);
     Team toTeamEntity(CreateTeamDTO dto);
-
 
 }

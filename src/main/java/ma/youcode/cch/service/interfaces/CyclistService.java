@@ -6,14 +6,17 @@ import ma.youcode.cch.entity.Cyclist;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 public interface CyclistService {
 
     CyclistResponseDTO createCyclist(CreateCyclistDTO createCyclistDTO);
-    Cyclist updateCyclist(Cyclist cyclist);
-    Cyclist deleteCyclist(Cyclist cyclist);
+    CyclistResponseDTO updateCyclist( UUID cyclistId , CreateCyclistDTO createCyclistDTO);
+    CyclistResponseDTO deleteCyclist(UUID cyclistId);
     List<CyclistResponseDTO> getAllCyclists();
     List<Cyclist> getSortedCyclists(String criteria);
+    Cyclist getCyclistById(UUID cyclistId);
+    CyclistResponseDTO getCyclist(UUID cyclistId);
 
 //    public String test();
 
