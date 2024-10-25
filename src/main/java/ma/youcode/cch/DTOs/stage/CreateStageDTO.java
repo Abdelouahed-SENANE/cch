@@ -18,6 +18,8 @@ public class CreateStageDTO {
 
     private String endLocation;
 
+    private boolean completed;
+
     private String stageType;
 
     private UUID competitionId;

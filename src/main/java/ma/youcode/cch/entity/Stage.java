@@ -15,6 +15,7 @@ public class Stage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "stage_id")
     private UUID stageId;
 
     @Column(name = "start_location")
@@ -28,6 +29,9 @@ public class Stage {
 
     @Column(name = "stage_type")
     private String stageType;
+
+    @Column(name = "is_completed" , columnDefinition = "boolean default false")
+    private boolean isCompleted;
 
     @ManyToOne
     @JoinColumn(name = "competition_id" , nullable = false)

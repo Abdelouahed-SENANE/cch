@@ -14,6 +14,8 @@ public interface StageService {
     StageResponseDTO updateStage(UUID stageId,CreateStageDTO stageDTO);
     StageResponseDTO deleteStage(UUID stageId);
     List<StageResponseDTO> getAllStages();
-    StageResponseDTO getStage(UUID id);
-    Optional<Stage> getStageWithResultOrderedByDuration(UUID id);
+    StageResponseDTO getStage(UUID stageId);
+    Optional<Stage> getStageEntity(UUID stageId);
+    Optional<Stage> getStageWithResultOrderedByDuration(UUID stageId);
+    StageResponseDTO patchCompleted(CreateStageDTO createStageDTO , UUID stageId);
 }

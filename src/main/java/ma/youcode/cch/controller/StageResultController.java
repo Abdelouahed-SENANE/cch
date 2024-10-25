@@ -35,11 +35,11 @@ public class StageResultController {
         return ResponseEntity.ok(stageResultService.createStageResult(createStageResultDTO));
     }
 
-    @PutMapping("{cyclistId}/{stageId}")
-    public ResponseEntity<StageResultResponseDTO> updateStageResult(@PathVariable UUID cyclistId, @PathVariable UUID competitionId , @RequestBody CreateStageResultDTO createStageResultDTO) {
-            return ResponseEntity.ok(stageResultService.updateStageResult(cyclistId,competitionId,createStageResultDTO));
-
-    }
+//    @PutMapping("{cyclistId}/{stageId}")
+//    public ResponseEntity<StageResultResponseDTO> updateStageResult(@PathVariable UUID cyclistId, @PathVariable UUID competitionId , @RequestBody CreateStageResultDTO createStageResultDTO) {
+//            return ResponseEntity.ok(stageResultService.updateStageResult(cyclistId,competitionId,createStageResultDTO));
+//
+//    }
 
     @DeleteMapping("{cyclistId}/{stageId}")
     public ResponseEntity<StageResultResponseDTO> deleteStageResult(@PathVariable UUID cyclistId , @PathVariable UUID stageId) {

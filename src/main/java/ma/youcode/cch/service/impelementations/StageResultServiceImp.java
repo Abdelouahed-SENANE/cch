@@ -53,11 +53,15 @@ public class StageResultServiceImp implements StageResultService {
             throw new EntityExistsException("The stage result Already Exists");
         }
 
-        CompetitionResponseDTO competition = getStage(toStageResult.getStageResultId().getStageId());
-        CyclistResponseDTO cyclist = getCyclist(toStageResult.getStageResultId().getCyclistId());
+        Stage stage = getStage(toStageResult.getStage().getStageId());
+        Cyclist cyclist = getCyclist(toStageResult.getStageResultId().getCyclistId());
 
-        if (!isCyclistSubscribedInCompetition(cyclist.getCyclistId(), competition.getCompetitionId())) {
-            throw new EntityNotFoundException("The cyclist cannot added on this stage because is not subscribed on this competition " + competition.getCompetitionName());
+        if (stage == null || cyclist == null) {
+            throw new EntityExistsException("Stage or Cyclist Not Found");
+        }
+
+        if (!isCyclistSubscribedInCompetition(cyclist.getCyclistId(), stage.getCompetition().getCompetitionId())) {
+            throw new EntityNotFoundException("The cyclist cannot added on this stage because is not subscribed on this competition " + stage.getCompetition().getCompetitionName());
         }
 
         return stageResultMapper.toResponseDTO(stageResultDao.save(toStageResult));
@@ -102,12 +106,12 @@ public class StageResultServiceImp implements StageResultService {
     private StageResultId getStageResultId(UUID cyclistId , UUID stageId) {
         return  new StageResultId(cyclistId , stageId);
     }
-    private CompetitionResponseDTO getStage(UUID competitionId) {
-        return competitionService.getCompetition(competitionId);
+    private Stage getStage(UUID stageId) {
+        return stageService.getStageEntity(stageId).orElse(null);
     }
 
-    private CyclistResponseDTO getCyclist(UUID cyclistId) {
-        return cyclistService.getCyclist(cyclistId);
+    private Cyclist getCyclist(UUID cyclistId) {
+        return cyclistService.getCyclistById(cyclistId).orElse(null);
     }
 
     @Override

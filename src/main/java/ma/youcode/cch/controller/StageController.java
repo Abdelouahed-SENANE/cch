@@ -38,14 +38,12 @@ public class StageController {
     }
 
     @PutMapping("{stageId}")
-    public ResponseEntity<?> updateStage(@PathVariable UUID stageId, @RequestBody CreateStageDTO createStageDTO) {
-
-        try {
+    public ResponseEntity<StageResponseDTO> updateStage(@PathVariable UUID stageId, @RequestBody CreateStageDTO createStageDTO) {
             return ResponseEntity.ok(stageService.updateStage(stageId, createStageDTO));
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
-
+    }
+    @PatchMapping("{stageId}/completed")
+    public ResponseEntity<StageResponseDTO> patchCompleted(@PathVariable UUID stageId , @RequestBody CreateStageDTO createStageDTO) {
+        return ResponseEntity.ok(stageService.patchCompleted(createStageDTO ,stageId));
     }
 
     @DeleteMapping("{stageId}")
@@ -53,10 +51,6 @@ public class StageController {
         return ResponseEntity.ok(stageService.deleteStage(stageId));
     }
 
-//    @GetMapping("/filter")
-//    public ResponseEntity<?> sortedStages(@RequestParam(required = false) String place , @RequestParam(required = false) LocalDate startDate) {
-//        return ResponseEntity.ok(stageService.getFilteredStages(place , startDate));
-//    }
 
 
 }

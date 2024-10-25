@@ -7,4 +7,5 @@ import java.util.UUID;
 
 public interface StageDao extends GenericDao<Stage, UUID> {
 //    Optional<Stage> findStageOrderedByDuration(UUID id);
+    Stage updateIsCompleted(Stage stage);
 }

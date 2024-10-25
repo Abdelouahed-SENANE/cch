@@ -74,7 +74,6 @@ public class StageServiceImp implements StageService {
 
         Stage deleted = stageOptional.orElse(null);
 
-//
         return stageMapper.toResponseDTO(stageDao.delete(deleted));
 
     }
@@ -100,13 +99,8 @@ public class StageServiceImp implements StageService {
 
     @Override
     public StageResponseDTO getStage(UUID id) {
-        Optional<Stage> stageOptional = stageDao.findById(id);
-
-        if (!stageOptional.isPresent()) {
-            throw new EntityNotFoundException("Stage Not Found");
-        }
-
-        return stageMapper.toResponseDTO(stageOptional.get());
+        Stage getStage = stageDao.findById(id).orElseThrow(() -> new EntityNotFoundException("Stage Not Found"));
+        return stageMapper.toResponseDTO(getStage);
     }
 
     public Optional<Stage> getStageById(UUID id) {
@@ -129,5 +123,15 @@ public class StageServiceImp implements StageService {
         return Optional.empty();
     }
 
+    @Override
+    public Optional<Stage> getStageEntity(UUID stageId) {
+        return stageDao.findById(stageId);
+    }
 
+    @Override
+    public StageResponseDTO patchCompleted(CreateStageDTO createStageDTO, UUID stageId) {
+        Stage updated = this.getStageEntity(stageId).orElseThrow(() ->new EntityNotFoundException("Stage Not Found"));
+        updated.setCompleted(createStageDTO.isCompleted());
+        return stageMapper.toResponseDTO(stageDao.updateIsCompleted(updated));
+    }
 }

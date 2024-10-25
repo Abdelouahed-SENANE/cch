@@ -17,6 +17,8 @@ public class EmbeddedStageDTO {
 
     private String endLocation;
 
+    private boolean completed;
+
     private String stageType;
 
     private String startDate;
