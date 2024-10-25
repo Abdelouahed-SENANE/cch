@@ -2,8 +2,8 @@ package ma.youcode.cch.service.impelementations;
 
 import jakarta.persistence.EntityNotFoundException;
 import ma.youcode.cch.repository.interfaces.GeneralResultDao;
-import ma.youcode.cch.DTOs.stageResult.CreateGeneralResultDTO;
-import ma.youcode.cch.DTOs.stageResult.GeneralResultResponseDTO;
+import ma.youcode.cch.DTOs.generalResult.CreateGeneralResultDTO;
+import ma.youcode.cch.DTOs.generalResult.GeneralResultResponseDTO;
 import ma.youcode.cch.entity.Competition;
 import ma.youcode.cch.entity.Cyclist;
 import ma.youcode.cch.entity.GeneralResult;

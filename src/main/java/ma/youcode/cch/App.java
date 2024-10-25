@@ -16,7 +16,7 @@ public class App {
 //        CompetitionService competitionService = context.getBean(CompetitionService.class);
 //        StageService stageService = context.getBean(StageService.class);
 //        GeneralResultService generalResultService = context.getBean(GeneralResultService.class);
-//        ResultService resultService = context.getBean(ResultService.class);
+//        StageResultService resultService = context.getBean(StageResultService.class);
 //
 //
 //        UUID cyclistId = UUID.fromString("8a612246-5284-43ec-8619-795f09a3bd1c");

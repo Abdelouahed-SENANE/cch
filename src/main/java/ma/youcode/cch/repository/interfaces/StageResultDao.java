@@ -4,5 +4,5 @@ import ma.youcode.cch.entity.StageResult;
 import ma.youcode.cch.entity.embedded.StageResultId;
 import ma.youcode.cch.generic.interfaces.GenericDao;
 
-public interface ResultDao extends GenericDao<StageResult, StageResultId> {
+public interface StageResultDao extends GenericDao<StageResult, StageResultId> {
 }

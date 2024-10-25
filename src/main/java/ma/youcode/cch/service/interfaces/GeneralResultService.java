@@ -1,7 +1,7 @@
 package ma.youcode.cch.service.interfaces;
 
-import ma.youcode.cch.DTOs.stageResult.CreateGeneralResultDTO;
-import ma.youcode.cch.DTOs.stageResult.GeneralResultResponseDTO;
+import ma.youcode.cch.DTOs.generalResult.CreateGeneralResultDTO;
+import ma.youcode.cch.DTOs.generalResult.GeneralResultResponseDTO;
 
 import java.util.List;
 import java.util.UUID;

@@ -37,7 +37,7 @@
     <bean id="generalResultDaoImp" class="ma.youcode.cch.repository.implementations.GeneralResultDaoImp" />
     <bean id="competitionDaoImp" class="ma.youcode.cch.repository.implementations.CompetitionDaoImp" />
     <bean id="cyclistDaoImp" class="ma.youcode.cch.repository.implementations.CyclistDaoImp" />
-    <bean id="resultDaoImp" class="ma.youcode.cch.repository.implementations.ResultDaoImp" />
+    <bean id="stageResultDaoImp" class="ma.youcode.cch.repository.implementations.StageResultDaoImp" />
     <bean id="cyclistServiceImp" class="ma.youcode.cch.service.impelementations.CyclistServiceImp"/>
     <bean id="teamServiceImp" class="ma.youcode.cch.service.impelementations.TeamServiceImp"/>
     <bean id="stageServiceImp" class="ma.youcode.cch.service.impelementations.StageServiceImp"/>

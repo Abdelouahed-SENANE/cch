@@ -1,7 +1,7 @@
 package ma.youcode.cch.controller;
 
-import ma.youcode.cch.DTOs.stageResult.CreateGeneralResultDTO;
-import ma.youcode.cch.DTOs.stageResult.GeneralResultResponseDTO;
+import ma.youcode.cch.DTOs.generalResult.CreateGeneralResultDTO;
+import ma.youcode.cch.DTOs.generalResult.GeneralResultResponseDTO;
 import ma.youcode.cch.service.interfaces.GeneralResultService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,14 +37,12 @@ public class GeneralResultController {
 
     @PutMapping("{cyclistId}/{competitionId}")
     public ResponseEntity<GeneralResultResponseDTO> updateGeneralResult(@PathVariable UUID cyclistId, @PathVariable UUID competitionId , @RequestBody CreateGeneralResultDTO createGeneralResultDTO) {
-
             return ResponseEntity.ok(generalResultService.updateGeneralResult(cyclistId,competitionId,createGeneralResultDTO));
 
     }
 
     @DeleteMapping("{cyclistId}/{competitionId}")
     public ResponseEntity<GeneralResultResponseDTO> deleteGeneralResult(@PathVariable UUID cyclistId , @PathVariable UUID competitionId) {
-
         return ResponseEntity.ok(generalResultService.deleteGeneralResult(cyclistId, competitionId));
     }
 

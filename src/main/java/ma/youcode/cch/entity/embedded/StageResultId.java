@@ -17,6 +17,10 @@ public class StageResultId implements Serializable {
     private UUID stageId;
 
     public StageResultId(){}
+    public StageResultId(UUID cyclistId , UUID stageId){
+        this.cyclistId = cyclistId;
+        this.stageId = stageId;
+    }
 
     @Override
     public boolean equals(Object o) {
