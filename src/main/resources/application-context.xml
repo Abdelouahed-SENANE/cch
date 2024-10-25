@@ -34,10 +34,10 @@
         <constructor-arg name="competitionDao" ref="competitionDaoImp"/>
     </bean>
 
-    <bean id="generalResultDaoImp" class="ma.youcode.cch.daos.implementations.GeneralResultDaoImp" />
-    <bean id="competitionDaoImp" class="ma.youcode.cch.daos.implementations.CompetitionDaoImp" />
-    <bean id="cyclistDaoImp" class="ma.youcode.cch.daos.implementations.CyclistDaoImp" />
-    <bean id="resultDaoImp" class="ma.youcode.cch.daos.implementations.ResultDaoImp" />
+    <bean id="generalResultDaoImp" class="ma.youcode.cch.repository.implementations.GeneralResultDaoImp" />
+    <bean id="competitionDaoImp" class="ma.youcode.cch.repository.implementations.CompetitionDaoImp" />
+    <bean id="cyclistDaoImp" class="ma.youcode.cch.repository.implementations.CyclistDaoImp" />
+    <bean id="resultDaoImp" class="ma.youcode.cch.repository.implementations.ResultDaoImp" />
     <bean id="cyclistServiceImp" class="ma.youcode.cch.service.impelementations.CyclistServiceImp"/>
     <bean id="teamServiceImp" class="ma.youcode.cch.service.impelementations.TeamServiceImp"/>
     <bean id="stageServiceImp" class="ma.youcode.cch.service.impelementations.StageServiceImp"/>

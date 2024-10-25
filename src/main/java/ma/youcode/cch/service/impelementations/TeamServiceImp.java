@@ -1,9 +1,9 @@
 package ma.youcode.cch.service.impelementations;
 
 import jakarta.persistence.EntityNotFoundException;
-import ma.youcode.cch.daos.interfaces.TeamDao;
-import ma.youcode.cch.dtos.team.CreateTeamDTO;
-import ma.youcode.cch.dtos.team.TeamResponseDTO;
+import ma.youcode.cch.repository.interfaces.TeamDao;
+import ma.youcode.cch.DTOs.team.CreateTeamDTO;
+import ma.youcode.cch.DTOs.team.TeamResponseDTO;
 import ma.youcode.cch.entity.Team;
 import ma.youcode.cch.mapper.TeamMapper;
 import ma.youcode.cch.service.interfaces.TeamService;

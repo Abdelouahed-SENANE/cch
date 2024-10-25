@@ -1,7 +1,7 @@
 package ma.youcode.cch.service.impelementations;
 
 import jakarta.persistence.EntityNotFoundException;
-import ma.youcode.cch.daos.interfaces.*;
+import ma.youcode.cch.repository.interfaces.*;
 import ma.youcode.cch.entity.Cyclist;
 import ma.youcode.cch.entity.GeneralResult;
 import ma.youcode.cch.entity.StageResult;
@@ -35,14 +35,14 @@ public class ResultServiceImp implements ResultService {
     @Override
     public StageResult createResult(StageResult stageResult) {
 
-        Stage stage = getStage(stageResult.getResultId().getStageId());
-        Cyclist cyclist = getCyclist(stageResult.getResultId().getCyclistId());
+        Stage stage = getStage(stageResult.getStageResultId().getStageId());
+        Cyclist cyclist = getCyclist(stageResult.getStageResultId().getCyclistId());
 
         if (!isCyclistSubscribedInCompetition(cyclist , stage)) {
              throw new EntityNotFoundException("The cyclist cannot added on this stage because is not register in this competition " + stage.getCompetition().getCompetitionName());
         }
 
-//        stageResult.setResultId(stageResult.getResultId());
+//        stageResult.setStageResultId(stageResult.getStageResultId());
         stageResult.setStage(stage);
         stageResult.setCyclist(cyclist);
         return resultDao.save(stageResult);
@@ -51,7 +51,7 @@ public class ResultServiceImp implements ResultService {
     @Override
     public StageResult updateResult(StageResult stageResult) {
 
-        Optional<StageResult> optionalResult = resultDao.findById(stageResult.getResultId());
+        Optional<StageResult> optionalResult = resultDao.findById(stageResult.getStageResultId());
 
         if (optionalResult.isPresent()) {
             return resultDao.update(stageResult);

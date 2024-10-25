@@ -1,8 +1,8 @@
 package ma.youcode.cch.controller;
 
 import jakarta.persistence.EntityNotFoundException;
-import ma.youcode.cch.dtos.competition.CreateCompetitionDTO;
-import ma.youcode.cch.dtos.competition.CompetitionResponseDTO;
+import ma.youcode.cch.DTOs.competition.CreateCompetitionDTO;
+import ma.youcode.cch.DTOs.competition.CompetitionResponseDTO;
 import ma.youcode.cch.service.interfaces.CompetitionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

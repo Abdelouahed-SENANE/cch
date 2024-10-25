@@ -1,7 +1,7 @@
 package ma.youcode.cch.service.interfaces;
 
-import ma.youcode.cch.dtos.team.CreateTeamDTO;
-import ma.youcode.cch.dtos.team.TeamResponseDTO;
+import ma.youcode.cch.DTOs.team.CreateTeamDTO;
+import ma.youcode.cch.DTOs.team.TeamResponseDTO;
 import ma.youcode.cch.entity.Team;
 
 import java.util.Set;

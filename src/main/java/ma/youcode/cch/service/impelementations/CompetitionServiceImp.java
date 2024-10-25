@@ -1,9 +1,9 @@
 package ma.youcode.cch.service.impelementations;
 
 import jakarta.persistence.EntityNotFoundException;
-import ma.youcode.cch.daos.interfaces.CompetitionDao;
-import ma.youcode.cch.dtos.competition.CompetitionResponseDTO;
-import ma.youcode.cch.dtos.competition.CreateCompetitionDTO;
+import ma.youcode.cch.repository.interfaces.CompetitionDao;
+import ma.youcode.cch.DTOs.competition.CompetitionResponseDTO;
+import ma.youcode.cch.DTOs.competition.CreateCompetitionDTO;
 import ma.youcode.cch.entity.Competition;
 import ma.youcode.cch.mapper.CompetitionMapper;
 import ma.youcode.cch.service.interfaces.CompetitionService;

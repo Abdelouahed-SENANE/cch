@@ -1,8 +1,7 @@
 package ma.youcode.cch.controller;
 
-import ma.youcode.cch.dtos.team.CreateTeamDTO;
-import ma.youcode.cch.dtos.team.TeamResponseDTO;
-import ma.youcode.cch.service.interfaces.CyclistService;
+import ma.youcode.cch.DTOs.team.CreateTeamDTO;
+import ma.youcode.cch.DTOs.team.TeamResponseDTO;
 import ma.youcode.cch.service.interfaces.TeamService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

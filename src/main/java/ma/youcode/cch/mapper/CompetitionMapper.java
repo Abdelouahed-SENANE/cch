@@ -1,9 +1,9 @@
 package ma.youcode.cch.mapper;
 
 
-import ma.youcode.cch.dtos.competition.CreateCompetitionDTO;
-import ma.youcode.cch.dtos.competition.EmbeddedCompetitionDTO;
-import ma.youcode.cch.dtos.competition.CompetitionResponseDTO;
+import ma.youcode.cch.DTOs.competition.CreateCompetitionDTO;
+import ma.youcode.cch.DTOs.competition.EmbeddedCompetitionDTO;
+import ma.youcode.cch.DTOs.competition.CompetitionResponseDTO;
 import ma.youcode.cch.entity.Competition;
 import org.mapstruct.Mapper;
 

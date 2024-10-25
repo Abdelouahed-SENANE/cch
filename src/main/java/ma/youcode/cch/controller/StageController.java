@@ -1,14 +1,13 @@
 package ma.youcode.cch.controller;
 
 import jakarta.persistence.EntityNotFoundException;
-import ma.youcode.cch.dtos.stage.StageResponseDTO;
-import ma.youcode.cch.dtos.stage.CreateStageDTO;
+import ma.youcode.cch.DTOs.stage.StageResponseDTO;
+import ma.youcode.cch.DTOs.stage.CreateStageDTO;
 import ma.youcode.cch.service.interfaces.StageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 

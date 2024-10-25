@@ -1,18 +1,14 @@
 package ma.youcode.cch.controller;
 
 import jakarta.persistence.EntityNotFoundException;
-import ma.youcode.cch.dtos.cyclist.CreateCyclistDTO;
-import ma.youcode.cch.dtos.cyclist.CyclistResponseDTO;
-import ma.youcode.cch.entity.Cyclist;
-import ma.youcode.cch.entity.Team;
+import ma.youcode.cch.DTOs.cyclist.CreateCyclistDTO;
+import ma.youcode.cch.DTOs.cyclist.CyclistResponseDTO;
 import ma.youcode.cch.service.interfaces.CyclistService;
-import ma.youcode.cch.service.interfaces.TeamService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @RestController

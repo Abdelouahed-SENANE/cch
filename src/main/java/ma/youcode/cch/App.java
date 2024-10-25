@@ -23,22 +23,22 @@ public class App {
 //        UUID competitionId = UUID.fromString("c25768dd-51f8-43af-ba82-c85b6c09c30a");
 //        UUID stageId = UUID.fromString("2a33a503-7f8b-4377-a78e-59b8a4752f1c");
 ////
-//        ResultId resultId = new ResultId();
+//        StageResultId resultId = new StageResultId();
 //        resultId.setCyclistId(cyclistId);
 //        resultId.setStageId(stageId);
 //        StageResult result = new StageResult();
-//        result.setResultId(resultId);
+//        result.setStageResultId(resultId);
 //        try {
 //            resultService.createResult(result);
 //            System.out.println("This cyclist can added on this stage ");
 //        }catch (IllegalArgumentException e) {
 //            System.out.println(e.getMessage());
 //        }
-//        ResultId resultId = new ResultId();
+//        StageResultId resultId = new StageResultId();
 //        resultId.setStageId(UUID.fromString("1c18bf4b-0312-4096-96a8-51d7b2a28503"));
 //        resultId.setCyclistId(UUID.fromString("da346d6b-c80e-4701-88ce-7943bbbe284a"));
 //        StageResult result = new StageResult();
-//        result.setResultId(resultId);
+//        result.setStageResultId(resultId);
 //        result.setDuration(Duration.ofSeconds(100));
 //        resultService.updateResult(result);
 //        Competition competition = new Competition();

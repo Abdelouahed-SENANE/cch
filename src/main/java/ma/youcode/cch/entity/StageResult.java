@@ -3,7 +3,7 @@ package ma.youcode.cch.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import ma.youcode.cch.entity.embedded.ResultId;
+import ma.youcode.cch.entity.embedded.StageResultId;
 
 import java.time.Duration;
 
@@ -14,7 +14,7 @@ import java.time.Duration;
 public class StageResult {
 
     @EmbeddedId
-    private ResultId resultId;
+    private StageResultId stageResultId;
 
     @ManyToOne
     @MapsId("cyclistId")

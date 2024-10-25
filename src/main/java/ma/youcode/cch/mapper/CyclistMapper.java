@@ -1,9 +1,9 @@
 package ma.youcode.cch.mapper;
 
 
-import ma.youcode.cch.dtos.cyclist.CreateCyclistDTO;
-import ma.youcode.cch.dtos.cyclist.CyclistResponseDTO;
-import ma.youcode.cch.dtos.cyclist.EmbeddedCyclistDTO;
+import ma.youcode.cch.DTOs.cyclist.CreateCyclistDTO;
+import ma.youcode.cch.DTOs.cyclist.CyclistResponseDTO;
+import ma.youcode.cch.DTOs.cyclist.EmbeddedCyclistDTO;
 import ma.youcode.cch.entity.Cyclist;
 import ma.youcode.cch.entity.Team;
 import org.mapstruct.Mapper;

@@ -1,12 +1,11 @@
 package ma.youcode.cch.mapper;
 
 
-import ma.youcode.cch.dtos.stage.StageResponseDTO;
-import ma.youcode.cch.dtos.stage.CreateStageDTO;
-import ma.youcode.cch.dtos.stage.EmbeddedStageDTO;
+import ma.youcode.cch.DTOs.stage.StageResponseDTO;
+import ma.youcode.cch.DTOs.stage.CreateStageDTO;
+import ma.youcode.cch.DTOs.stage.EmbeddedStageDTO;
 import ma.youcode.cch.entity.Competition;
 import ma.youcode.cch.entity.Stage;
-import ma.youcode.cch.entity.Team;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;

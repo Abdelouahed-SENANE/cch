@@ -1,13 +1,12 @@
 package ma.youcode.cch.service.interfaces;
 
-import ma.youcode.cch.dtos.competition.CompetitionResponseDTO;
-import ma.youcode.cch.dtos.competition.CreateCompetitionDTO;
+import ma.youcode.cch.DTOs.competition.CompetitionResponseDTO;
+import ma.youcode.cch.DTOs.competition.CreateCompetitionDTO;
 import ma.youcode.cch.entity.Competition;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 public interface CompetitionService {

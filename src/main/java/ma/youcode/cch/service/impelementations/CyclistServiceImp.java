@@ -1,9 +1,9 @@
 package ma.youcode.cch.service.impelementations;
 
 import jakarta.persistence.EntityNotFoundException;
-import ma.youcode.cch.daos.interfaces.CyclistDao;
-import ma.youcode.cch.dtos.cyclist.CreateCyclistDTO;
-import ma.youcode.cch.dtos.cyclist.CyclistResponseDTO;
+import ma.youcode.cch.repository.interfaces.CyclistDao;
+import ma.youcode.cch.DTOs.cyclist.CreateCyclistDTO;
+import ma.youcode.cch.DTOs.cyclist.CyclistResponseDTO;
 import ma.youcode.cch.entity.Cyclist;
 import ma.youcode.cch.mapper.CyclistMapper;
 import ma.youcode.cch.service.interfaces.CyclistService;

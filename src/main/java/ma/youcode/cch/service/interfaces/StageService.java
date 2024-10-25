@@ -1,12 +1,11 @@
 package ma.youcode.cch.service.interfaces;
 
-import ma.youcode.cch.dtos.stage.CreateStageDTO;
-import ma.youcode.cch.dtos.stage.StageResponseDTO;
+import ma.youcode.cch.DTOs.stage.CreateStageDTO;
+import ma.youcode.cch.DTOs.stage.StageResponseDTO;
 import ma.youcode.cch.entity.Stage;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 public interface StageService {

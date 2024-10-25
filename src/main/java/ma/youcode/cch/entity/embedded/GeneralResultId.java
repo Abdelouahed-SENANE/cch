@@ -18,6 +18,10 @@ public class GeneralResultId implements Serializable {
     private UUID competitionId;
 
     public GeneralResultId(){}
+    public GeneralResultId(UUID cyclistId , UUID competitionId){
+        this.competitionId = competitionId;
+        this.cyclistId = cyclistId;
+    }
 
     @Override
     public boolean equals(Object o) {
