@@ -6,6 +6,7 @@ import ma.youcode.cch.service.interfaces.TeamService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -18,6 +19,10 @@ public class TeamController {
     }
 
 
+    @GetMapping
+    public ResponseEntity<List<TeamResponseDTO>> allTeams(){
+        return ResponseEntity.ok(teamService.getAllTeams());
+    }
     @PostMapping
     public ResponseEntity<TeamResponseDTO> addTeam(@RequestBody CreateTeamDTO createTeamDTO) {
         System.out.println(createTeamDTO.toString());

@@ -10,9 +10,11 @@ import ma.youcode.cch.service.interfaces.TeamService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -60,8 +62,11 @@ public class TeamServiceImp implements TeamService {
     }
 
     @Override
-    public Set<Team> getAllTeams() {
-        return teamDao.findAll();
+    public List<TeamResponseDTO> getAllTeams() {
+        return this.convertToListDTO(teamDao.findAll());
+    }
+    private List<TeamResponseDTO> convertToListDTO(Set<Team> teams){
+        return teams.stream().map(teamMapper::toResponseDTO).collect(Collectors.toList());
     }
 
     @Override
