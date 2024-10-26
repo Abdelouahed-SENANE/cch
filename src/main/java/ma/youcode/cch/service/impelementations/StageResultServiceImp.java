@@ -29,18 +29,17 @@ public class StageResultServiceImp implements StageResultService {
     private final StageResultDao stageResultDao;
     private final GeneralResultService generalResultService;
     private final StageService stageService;
-    private final CompetitionService competitionService;
     private final CyclistService cyclistService;
     private final StageResultMapper stageResultMapper;
 
 
-    public StageResultServiceImp(StageResultDao stageResultDao,CompetitionService competitionService, StageResultMapper stageResultMapper,CyclistService cyclistService, GeneralResultService generalResultService, StageService stageService) {
+    public StageResultServiceImp(StageResultDao stageResultDao, StageResultMapper stageResultMapper, CyclistService cyclistService, GeneralResultService generalResultService, StageService stageService) {
         this.stageResultDao = stageResultDao;
         this.generalResultService = generalResultService;
         this.cyclistService = cyclistService;
         this.stageService = stageService;
         this.stageResultMapper = stageResultMapper;
-        this.competitionService = competitionService;
+
 
     }
 
@@ -68,22 +67,28 @@ public class StageResultServiceImp implements StageResultService {
     }
 
     @Override
-    public StageResultResponseDTO updateStageResult(CreateStageResultDTO stageResultDTO) {
+    public StageResultResponseDTO updateStageResult(CreateStageResultDTO stageResultDTO, UUID cyclistId, UUID stageId) {
+        StageResultId stageResultId = this.getStageResultId(cyclistId, stageId);
 
-        return null;
+        StageResult stageResult = stageResultDao.findById(stageResultId).orElseThrow(() -> new EntityNotFoundException("Result Stage Not Found"));
+
+        if (stageResult.getStage().isCompleted()) {
+            throw new IllegalArgumentException("Cannot update this Stage result because is Completed");
+        }
+        StageResult toStageResult = stageResultMapper.toStageResultEntity(stageResultDTO);
+
+        return stageResultMapper.toResponseDTO(stageResultDao.update(toStageResult));
     }
 
     @Override
-    public StageResultResponseDTO deleteStageResult(UUID cyclistId , UUID stageId) {
+    public StageResultResponseDTO deleteStageResult(UUID cyclistId, UUID stageId) {
 
-        StageResultId stageResultId = this.getStageResultId(cyclistId , stageId);
+        StageResultId stageResultId = this.getStageResultId(cyclistId, stageId);
 
         if (!isStageResult(stageResultId)) {
             throw new EntityNotFoundException("Result Stage Not Found");
         }
-
         StageResult stageResult = stageResultDao.findById(stageResultId).orElse(null);
-
         return stageResultMapper.toResponseDTO(stageResultDao.delete(stageResult));
     }
 
@@ -95,17 +100,21 @@ public class StageResultServiceImp implements StageResultService {
     private List<StageResultResponseDTO> convertToListResponseDTO(Set<StageResult> stageResults) {
         return stageResults.stream().map(stageResultMapper::toResponseDTO).collect(Collectors.toList());
     }
+
     private boolean isCyclistSubscribedInCompetition(UUID cyclistId, UUID competitionId) {
         GeneralResultResponseDTO generalResult = generalResultService.getGeneralResult(cyclistId, competitionId);
         return generalResult != null;
     }
+
     private boolean isStageResult(StageResultId stageResultId) {
         Optional<StageResult> stageResult = stageResultDao.findById(stageResultId);
         return stageResult.isPresent();
     }
-    private StageResultId getStageResultId(UUID cyclistId , UUID stageId) {
-        return  new StageResultId(cyclistId , stageId);
+
+    private StageResultId getStageResultId(UUID cyclistId, UUID stageId) {
+        return new StageResultId(cyclistId, stageId);
     }
+
     private Stage getStage(UUID stageId) {
         return stageService.getStageEntity(stageId).orElse(null);
     }
@@ -116,10 +125,9 @@ public class StageResultServiceImp implements StageResultService {
 
     @Override
     public StageResultResponseDTO getStageResult(UUID cyclistId, UUID stageId) {
-        StageResultId stageResultId = this.getStageResultId(cyclistId , stageId);
+        StageResultId stageResultId = this.getStageResultId(cyclistId, stageId);
         return stageResultMapper.toResponseDTO(stageResultDao.findById(stageResultId).orElse(null));
     }
-
 
 
 }
