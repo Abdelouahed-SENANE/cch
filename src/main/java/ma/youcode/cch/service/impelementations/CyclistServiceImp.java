@@ -1,12 +1,15 @@
 package ma.youcode.cch.service.impelementations;
 
 import jakarta.persistence.EntityNotFoundException;
+import ma.youcode.cch.DTOs.team.TeamResponseDTO;
+import ma.youcode.cch.entity.Team;
 import ma.youcode.cch.repository.interfaces.CyclistDao;
 import ma.youcode.cch.DTOs.cyclist.CreateCyclistDTO;
 import ma.youcode.cch.DTOs.cyclist.CyclistResponseDTO;
 import ma.youcode.cch.entity.Cyclist;
 import ma.youcode.cch.mapper.CyclistMapper;
 import ma.youcode.cch.service.interfaces.CyclistService;
+import ma.youcode.cch.service.interfaces.TeamService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,15 +23,24 @@ public class CyclistServiceImp implements CyclistService {
 
     private final CyclistDao cyclistDao;
     private final CyclistMapper cyclistMapper;
+    private final TeamService teamService;
 
-    public CyclistServiceImp(CyclistDao cyclistDao, CyclistMapper cyclistMapper) {
+
+    public CyclistServiceImp(CyclistDao cyclistDao, CyclistMapper cyclistMapper , TeamService teamService) {
         this.cyclistDao = cyclistDao;
         this.cyclistMapper = cyclistMapper;
+        this.teamService = teamService;
     }
 
 
     @Override
     public CyclistResponseDTO createCyclist(CreateCyclistDTO createCyclistDTO) {
+
+        TeamResponseDTO getTeam = teamService.getTeam(createCyclistDTO.getTeamId());
+
+        if (getTeam == null){
+            throw new EntityNotFoundException("Team Not Found");
+        }
 
         Cyclist cyclist = cyclistMapper.toCyclistEntity(createCyclistDTO);
         cyclist = cyclistDao.save(cyclist);

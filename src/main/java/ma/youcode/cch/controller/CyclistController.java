@@ -1,6 +1,7 @@
 package ma.youcode.cch.controller;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import ma.youcode.cch.DTOs.cyclist.CreateCyclistDTO;
 import ma.youcode.cch.DTOs.cyclist.CyclistResponseDTO;
 import ma.youcode.cch.service.interfaces.CyclistService;
@@ -35,7 +36,7 @@ public class CyclistController {
     }
 
     @PostMapping
-    public ResponseEntity<CyclistResponseDTO> addCyclist(@RequestBody CreateCyclistDTO createCyclistDTO) {
+    public ResponseEntity<CyclistResponseDTO> addCyclist(@Valid @RequestBody CreateCyclistDTO createCyclistDTO) {
         return ResponseEntity.ok(cyclistService.createCyclist(createCyclistDTO));
     }
 
