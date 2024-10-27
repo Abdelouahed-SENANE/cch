@@ -78,7 +78,7 @@ public class TeamServiceImp implements TeamService {
         return teamMapper.toResponseDTO(optionalTeam.get());
     }
 
-    private boolean isTeamExist(UUID teamId) {
+    public boolean isTeamExist(UUID teamId) {
         return teamDao.existsById(teamId);
     }
 

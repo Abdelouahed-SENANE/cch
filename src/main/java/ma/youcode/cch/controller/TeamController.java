@@ -31,15 +31,13 @@ public class TeamController {
 
     @PutMapping("/{teamId}")
     public ResponseEntity<TeamResponseDTO> updateTeam(@PathVariable UUID teamId ,  @RequestBody CreateTeamDTO createTeamDTO) {
-
         return ResponseEntity.ok(teamService.updateTeam(createTeamDTO , teamId));
     }
 
     @DeleteMapping("/{teamId}")
-    public ResponseEntity<String> deleteTeam(@PathVariable UUID teamId) {
+    public ResponseEntity<TeamResponseDTO> deleteTeam(@PathVariable UUID teamId) {
         TeamResponseDTO response = teamService.deleteTeam(teamId);
-        String success = response.getTeamName() + " has been deleted successfully.";
-        return ResponseEntity.ok(success);
+        return ResponseEntity.ok(response);
 
     }
     @GetMapping("/{teamId}")

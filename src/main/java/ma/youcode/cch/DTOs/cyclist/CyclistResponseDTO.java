@@ -24,4 +24,6 @@ public class CyclistResponseDTO {
 
     private EmbeddedTeamDTO team;
 
+    public CyclistResponseDTO(UUID id, String firstName) {
+    }
 }
