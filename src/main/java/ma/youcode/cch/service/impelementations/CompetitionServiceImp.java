@@ -71,7 +71,7 @@ public class CompetitionServiceImp implements CompetitionService {
 
     @Override
     public CompetitionResponseDTO getCompetition(UUID id) {
-        Competition getCompetition = competitionDao.findById(id).orElseThrow(() -> new EntityNotFoundException("Competition Not Found"));
+        Competition getCompetition =  getCompetitionById(id).orElseThrow(() -> new EntityNotFoundException("Competition Not Found"));
         return competitionMapper.toResponseDTO(getCompetition);
     }
 

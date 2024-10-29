@@ -41,7 +41,7 @@ public class StageServiceImp implements StageService {
         Competition competition = optionalCompetition.get();
 
         if (competition.getStages().size() >= competition.getNumberOfStage()) {
-            throw new IllegalArgumentException("Cannot add new stage because you have reached the maximum number of stages  " + competition.getNumberOfStage());
+            throw new IllegalArgumentException("Cannot add new stage because you have reached the maximum number of stages " + competition.getNumberOfStage());
         }
         Stage stage = stageMapper.toStageEntity(stageDTO);
         stage.setStageNumber(calculateNextStageNumber(competition.getStages()));
@@ -103,9 +103,9 @@ public class StageServiceImp implements StageService {
         return stageMapper.toResponseDTO(getStage);
     }
 
-    public Optional<Stage> getStageById(UUID id) {
-        return stageDao.findById(id);
-    }
+//    public Optional<Stage> getStageById(UUID id) {
+//        return stageDao.findById(id);
+//    }
 
     @Override
     public Optional<Stage> getStageWithResultOrderedByDuration(UUID id) {

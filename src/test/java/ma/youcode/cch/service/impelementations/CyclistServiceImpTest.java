@@ -14,9 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -101,28 +99,134 @@ class CyclistServiceImpTest {
     public void shouldReturnCyclistResponseDTOAfterUpdatedCyclistSuccessfully() {
 
         when(teamService.getTeam(createDTO.getTeamId())).thenReturn(teamDTO);
+        when(cyclistDao.findById(id)).thenReturn(Optional.of(cyclist));
+
         when(cyclistMapper.toCyclistEntity(createDTO)).thenReturn(cyclist);
-        when(cyclistDao.save(cyclist)).thenReturn(cyclist);
+        when(cyclistDao.update(cyclist)).thenReturn(cyclist);
+
         when(cyclistMapper.toResponseDTO(cyclist)).thenReturn(responseDTO);
 
-        CyclistResponseDTO result = cyclistService.createCyclist(createDTO);
+        CyclistResponseDTO result = cyclistService.updateCyclist(id , createDTO);
 
         assertEquals(responseDTO, result);
         verify(teamService, atLeastOnce()).getTeam(teamId);
         verify(cyclistMapper, times(1)).toResponseDTO(cyclist);
         verify(cyclistMapper, times(1)).toCyclistEntity(createDTO);
-        verify(cyclistDao, atLeastOnce()).save(cyclist);
+        verify(cyclistDao, atLeastOnce()).findById(id);
+        verify(cyclistDao, atLeastOnce()).update(cyclist);
     }
     @Test
-    public void shouldThrowEntityNotFoundExceptionAfterUpdatedCyclistFails() {
+    public void shouldThrowEntityNotFoundExceptionWhenTeamNotFoundUpdatedCyclistFails() {
 
         when(teamService.getTeam(createDTO.getTeamId())).thenReturn(null);
 
-        EntityNotFoundException e = assertThrows(EntityNotFoundException.class , () -> cyclistService.createCyclist(createDTO));
+        EntityNotFoundException e = assertThrows(EntityNotFoundException.class , () -> cyclistService.updateCyclist(id , createDTO));
 
         assertEquals(TEAM_NOT_FOUND_MESSAGE, e.getMessage());
         verify(teamService, atLeastOnce()).getTeam(teamId);
 
     }
+
+    @Test
+    public void shouldThrowEntityNotFoundExceptionWhenCyclistNotFoundUpdatedCyclistFails() {
+
+        when(teamService.getTeam(createDTO.getTeamId())).thenReturn(teamDTO);
+        when(cyclistDao.findById(id)).thenReturn(Optional.empty());
+
+        EntityNotFoundException e = assertThrows(EntityNotFoundException.class , () -> cyclistService.updateCyclist(id , createDTO));
+
+        assertEquals(CYCLIST_NOT_FOUND_MESSAGE, e.getMessage());
+        verify(teamService, atLeastOnce()).getTeam(teamId);
+        verify(cyclistDao, atLeastOnce()).findById(id);
+
+    }
+
+    @Test
+    public void shouldReturnCyclistResponseDTOWhenDeletedCyclistSuccessfully() {
+        when(cyclistDao.findById(id)).thenReturn(Optional.of(cyclist));
+        doReturn(cyclist).when(cyclistDao).delete(cyclist);
+        when(cyclistMapper.toResponseDTO(cyclist)).thenReturn(responseDTO);
+        CyclistResponseDTO result = cyclistService.deleteCyclist(id);
+
+        assertNotNull(result);
+
+        assertEquals(result.getFirstName() , responseDTO.getFirstName());
+        verify(cyclistDao).findById(id);
+        verify(cyclistDao).delete(cyclist);
+
+
+    }
+
+    @Test
+    public void shouldThrowNotFoundExceptionWhenDeletedCyclistFails() {
+        when(cyclistDao.findById(id)).thenReturn(Optional.empty());
+
+        EntityNotFoundException e = assertThrows(EntityNotFoundException.class , () -> cyclistService.deleteCyclist(id));
+        assertEquals(CYCLIST_NOT_FOUND_MESSAGE , e.getMessage());
+
+        verify(cyclistDao).findById(id);
+    }
+
+    @Test
+    public void shouldListOfCyclistResponseDTOWhenCGetAllCyclistCalls() {
+
+        when(cyclistDao.findAll()).thenReturn(cyclists);
+
+        List<CyclistResponseDTO> result = cyclistService.getAllCyclists();
+
+        assertNotNull(result);
+
+        assertEquals(result.size() , cyclists.size());
+
+        verify(cyclistDao , atLeastOnce()).findAll();
+
+    }
+
+    @Test
+    public void shouldReturnCyclistResponseDTOWhenGetCyclistCallsSuccessfully() {
+        when(cyclistDao.findById(id)).thenReturn(Optional.of(cyclist));
+        when(cyclistMapper.toResponseDTO(cyclist)).thenReturn(responseDTO);
+
+        CyclistResponseDTO result = cyclistService.getCyclist(id);
+
+        assertNotNull(result);
+        assertEquals(result , responseDTO);
+        verify(cyclistDao).findById(id);
+        verify(cyclistMapper).toResponseDTO(cyclist);
+
+    }
+
+    @Test
+    public void shouldThrowNotFoundExceptionWhenGetCyclistCallsFails() {
+        when(cyclistDao.findById(id)).thenReturn(Optional.empty());
+        when(cyclistMapper.toResponseDTO(cyclist)).thenReturn(responseDTO);
+
+        EntityNotFoundException e = assertThrows(EntityNotFoundException.class , () -> cyclistService.getCyclist(id));
+
+        assertEquals(e.getMessage() , CYCLIST_NOT_FOUND_MESSAGE);
+        verify(cyclistDao).findById(id);
+        verifyNoInteractions(cyclistMapper);
+
+    }
+    @Test
+    public void shouldReturnSortedListCyclistResponseDTOWhenGetSortedCyclistCallsFails() {
+
+        String criteria = "lastName";
+        List<Cyclist> sortedList = new ArrayList<>();
+        when(cyclistDao.findSortedCyclists(criteria)).thenReturn(sortedList);
+
+        List<CyclistResponseDTO> results = cyclistService.getSortedCyclists(criteria);
+
+        assertNotNull(results);
+        assertEquals(results.size() , sortedList.size());
+
+        verify(cyclistDao).findSortedCyclists(criteria);
+        verifyNoInteractions(cyclistMapper);
+
+    }
+
+
+
+
 
 }

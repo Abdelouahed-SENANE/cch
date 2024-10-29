@@ -51,6 +51,12 @@ public class CyclistServiceImp implements CyclistService {
     @Override
     public CyclistResponseDTO updateCyclist( UUID cyclistId , CreateCyclistDTO createCyclistDTO) {
 
+        TeamResponseDTO getTeam = teamService.getTeam(createCyclistDTO.getTeamId());
+
+        if (getTeam == null){
+            throw new EntityNotFoundException("Team Not Found");
+        }
+
         if (!getCyclistById(cyclistId).isPresent()) {
             throw new EntityNotFoundException("Cyclist Not Found");
         }
@@ -63,10 +69,12 @@ public class CyclistServiceImp implements CyclistService {
 
     @Override
     public CyclistResponseDTO deleteCyclist(UUID cyclistId) {
-        if (!getCyclistById(cyclistId).isPresent()) {
+        Optional<Cyclist> cyclist = this.getCyclistById(cyclistId);
+
+        if (!cyclist.isPresent()) {
             throw new EntityNotFoundException("Cyclist Not Found");
         }
-        Cyclist deleted = this.getCyclistById(cyclistId).orElse(null);
+        Cyclist deleted = cyclist.get();
         return cyclistMapper.toResponseDTO(cyclistDao.delete(deleted));
     }
 
@@ -90,12 +98,11 @@ public class CyclistServiceImp implements CyclistService {
 
     @Override
     public CyclistResponseDTO getCyclist(UUID cyclistId) {
-        return cyclistMapper.toResponseDTO(getCyclistById(cyclistId).orElse(null));
+        return cyclistMapper.toResponseDTO(getCyclistById(cyclistId).orElseThrow(() -> new EntityNotFoundException("Cyclist Not Found")));
     }
 
     @Override
     public List<CyclistResponseDTO> getSortedCyclists(String criteria) {
-
         return this.convertToListCyclistDTO(cyclistDao.findSortedCyclists(criteria));
     }
 }

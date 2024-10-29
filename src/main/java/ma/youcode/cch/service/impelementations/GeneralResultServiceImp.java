@@ -51,7 +51,7 @@ public class GeneralResultServiceImp implements GeneralResultService {
         Optional<GeneralResult> getGeneralResult = generalResultDao.findById(generalResult.getGeneralResultId());
 
         if (getGeneralResult.isPresent()) {
-            throw new IllegalArgumentException("This " + getGeneralResult.get().getCyclist().getLastName() + " Already  Subscribed On This Competition " + getGeneralResult.get().getCompetition().getCompetitionName());
+            throw new IllegalArgumentException("This " + getGeneralResult.get().getCyclist().getLastName() + " Already Subscribed On This Competition " + getGeneralResult.get().getCompetition().getCompetitionName());
         }
 
         return generalResultMapper.toResponseDTO(generalResultDao.save(generalResult));
@@ -89,12 +89,13 @@ public class GeneralResultServiceImp implements GeneralResultService {
     public GeneralResultResponseDTO deleteGeneralResult(UUID cyclistId , UUID competitionId) {
 
         GeneralResultId generalResultId = this.getGeneralResultId(cyclistId , competitionId);
+        Optional<GeneralResult> optionalGeneralResult = generalResultDao.findById(generalResultId);
 
-        if (!isGeneralResult(generalResultId)) {
+        if (!optionalGeneralResult.isPresent()) {
             throw new EntityNotFoundException("General Result Not Found");
         }
+        GeneralResult generalResult = optionalGeneralResult.get();
 
-        GeneralResult generalResult = generalResultDao.findById(generalResultId).orElse(null);
         return generalResultMapper.toResponseDTO(generalResultDao.delete(generalResult));
     }
 
